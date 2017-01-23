@@ -6,6 +6,7 @@ import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
 
 import com.ctre.CANTalon;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -13,10 +14,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrain extends Subsystem {
 
-	private CANTalon left1 = new CANTalon(RobotMap.left1);
-	private CANTalon left2 = new CANTalon(RobotMap.left2);
-	private CANTalon right1 = new CANTalon(RobotMap.right1);
-	private CANTalon right2 = new CANTalon(RobotMap.right2);
+	private CANTalon left1 = new CANTalon(RobotMap.LEFT_DRIVE1);
+	private CANTalon left2 = new CANTalon(RobotMap.LEFT_DRIVE2);
+	private CANTalon right1 = new CANTalon(RobotMap.RIGHT_DRIVE1);
+	private CANTalon right2 = new CANTalon(RobotMap.RIGHT_DRIVE2);
+	
+	private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 	
 	public DriveTrain() {
 		
@@ -57,6 +60,30 @@ public class DriveTrain extends Subsystem {
     	
     	this.driveLR(0, 0);
    
+    }
+    
+    public void calibrateGyro() {
+    	
+    	
+    	
+    }
+    
+    public void resetGyro() {
+    	
+    	
+    	
+    }
+    
+    public void getGyroRate() {
+    	
+    	
+    	
+    }
+    
+    public void getGyroAngle() {
+    	
+    	
+    	
     }
 }
 
