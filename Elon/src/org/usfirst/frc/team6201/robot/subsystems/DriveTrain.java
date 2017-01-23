@@ -64,25 +64,25 @@ public class DriveTrain extends Subsystem {
     
     public void calibrateGyro() {
     	
-    	
+    	gyro.calibrate();
     	
     }
     
     public void resetGyro() {
     	
-    	
-    	
-    }
-    
-    public void getGyroRate() {
-    	
-    	
+    	gyro.reset();
     	
     }
     
-    public void getGyroAngle() {
+    public double getGyroRate() {
     	
+    	return gyro.getRate();
     	
+    }
+    
+    public double getGyroAngle() {
+    	
+    	return gyro.getAngle();
     	
     }
 }
