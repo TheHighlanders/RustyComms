@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *@author David Matthews
+ *@author Adriana Massie
  */
 public class ArcadeDriveCmd extends Command {
 
@@ -59,8 +60,12 @@ public class ArcadeDriveCmd extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	 dataLogger.DataCollator.state.setVal("ArcadeDriveCmdExecute");
-    	rawTurn = scaledValTan(Robot.oi.getXAxisOfLogitech(), TANDOMAIN_X);
-    	rawPower = scaledValTan(Robot.oi.getYAxisOfLogitech(), TANDOMAIN_Y);
+    	double joystickX = Robot.oi.getXAxisOfLogitech();
+    	double joystickY = Robot.oi.getYAxisOfLogitech();
+    	double joystickSlider = Robot.oi.getZAxisOfLogitech();
+    	
+    	rawTurn = scaledValTan(joystickX * joystickSlider, TANDOMAIN_X);
+    	rawPower = scaledValTan(joystickY * joystickSlider, TANDOMAIN_Y);
     	
     	processedPower = 0.95*rawPower; // leaves room for turning at full speed ahead.
     	processedOnceTurn = (1-rawPower) * rawTurn; // allows for turning full speed at stop.
