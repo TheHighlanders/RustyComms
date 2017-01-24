@@ -19,8 +19,12 @@ public class DriveTrain extends Subsystem {
 	private CANTalon right1 = new CANTalon(RobotMap.RIGHT_DRIVE1);
 	private CANTalon right2 = new CANTalon(RobotMap.RIGHT_DRIVE2);
 	
+	// Sensors
 	private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 	
+	/**
+	 * Constructor, sets up motors, prevents brownouts and minimizes pedestrian casualties. 
+	 */
 	public DriveTrain() {
 		
 		right1.setInverted(true);
@@ -56,30 +60,37 @@ public class DriveTrain extends Subsystem {
 
     }
     
+    //stops the DriveTrain
     public void stop() {
     	
     	this.driveLR(0, 0);
    
     }
     
+    
+    //Calibrates gyro (takes 5 secs while robot does nothing)
+    //Do this when robot first turns on
     public void calibrateGyro() {
     	
     	gyro.calibrate();
     	
     }
     
+    //Resets Gyro
     public void resetGyro() {
     	
     	gyro.reset();
     	
     }
     
+    //gets current gyro rate
     public double getGyroRate() {
     	
     	return gyro.getRate();
     	
     }
     
+    //gets current gyro angle
     public double getGyroAngle() {
     	
     	return gyro.getAngle();
