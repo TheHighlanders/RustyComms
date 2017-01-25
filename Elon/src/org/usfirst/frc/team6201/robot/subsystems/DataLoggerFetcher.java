@@ -29,6 +29,8 @@ public class DataLoggerFetcher extends Subsystem {
 			loggerPublisherThread.start();
 		}
 		catch (IOException e) {
+			//TODO: Look up how to send this message to the Driverstation, should be one line.
+			//TODO: ensure that if this exception is thrown, that we don't crash the robot via a Null pointer exception.
 			System.out.println("DataLoggerPublisherThread().start(); crashed" + e.getStackTrace());
 		}
 		

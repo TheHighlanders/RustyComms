@@ -12,36 +12,47 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
+ * This class is automatically run when the robot first boots up.
+ * Each of the methods are called at their appropriate parts of the game.
+ * 
+ * @author David Matthews
  */
 public class Robot extends IterativeRobot {
 
+	/**
+	 * Creates a DataLoggerFetcher subsystem object which starts the logging publisher thread for the Data Logger.
+	 */
 	public static DataLoggerFetcher dlf = new DataLoggerFetcher();
 	
-	//initialize this in robotInit or you'll get no robot code
+	/**
+	 * Declare the Operator Interface object.
+	 * DO NOT initialize it here that would cause No Robot Code to occur.
+	 */
 	public static OI oi;
-
+	
+	// provides a place to store which command we want to use in the auto section of the match.
+	// See robotInit() for how this is set.
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
+	 * TODO: calibrate our gyro here.
+	 * TODO: look up how calibration works if we have multiple gyro objects. Maybe chief delphi
 	 */
 	@Override
 	public void robotInit() {
 		oi = new OI();
-//		chooser.addDefault("Default Auto", new ExampleCommand());
+		
+		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
+		//TODO: implement this for our different auto routines.
 		SmartDashboard.putData("Auto mode", chooser);
 	}
 
 	/**
-	 * This function is called once each time the robot enters Disabled mode.
+	 * This method is called once each time the robot enters Disabled mode.
 	 * You can use it to reset any subsystem information you want to clear when
 	 * the robot is disabled.
 	 */
@@ -50,32 +61,29 @@ public class Robot extends IterativeRobot {
 
 	}
 
+	/**
+	 * This method is called periodically when the robot is in Disabled mode.
+	 * put anything here you want to run periodically when the robot is disabled
+	 */
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
 
 	/**
-	 * This autonomous (along with the chooser code above) shows how to select
-	 * between different autonomous modes using the dashboard. The sendable
-	 * chooser code works with the Java SmartDashboard. If you prefer the
-	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * getString code to get the auto name from the text box below the Gyro
-	 *
-	 * You can add additional auto modes by adding additional commands to the
-	 * chooser code above (like the commented example) or additional comparisons
-	 * to the switch structure below with additional strings & commands.
+	 * This method is called when the robot is entering autonomous. Put any setup for autonomous here.
+	 * Currently, we grab the selected autonomous command from the smart dashboard(a screen on the driverstation), and schedule it to run here.
 	 */
 	@Override
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
 
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
+		
+		  String autoSelected = SmartDashboard.getString("Auto Selector", "Default"); switch(autoSelected) {
+		  	case "My Auto": autonomousCommand = new MyAutoCommand(); break;
+		  	case "Default Auto": default: autonomousCommand = new ExampleCommand(); break;
+		  	}
+		 
 
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
