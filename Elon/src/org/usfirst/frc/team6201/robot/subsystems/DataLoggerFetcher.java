@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 
 /**
+ * A subsystem for the Data Logger to allow WPILibj to interface with the Data Logger and send a stop message, 
+ * and to enable easy updating of the DataFields of the DataCollator class.
+ *
  *@author David Matthews
  */
 public class DataLoggerFetcher extends Subsystem {
@@ -29,6 +32,8 @@ public class DataLoggerFetcher extends Subsystem {
 			loggerPublisherThread.start();
 		}
 		catch (IOException e) {
+			//TODO: Look up how to send this message to the Driverstation, should be one line.
+			//TODO: ensure that if this exception is thrown, that we don't crash the robot via a Null pointer exception.
 			System.out.println("DataLoggerPublisherThread().start(); crashed" + e.getStackTrace());
 		}
 		
@@ -36,16 +41,25 @@ public class DataLoggerFetcher extends Subsystem {
 	}
 	
 	
-
+	/**
+	 * Instructs loggerPublisherThread to send a UDP broadcast to inform the Data Logger recorders to stop logging.
+	 * 
+	 */
 	public void stopLoggingRecorder() {
 		loggerPublisherThread.stopLoggingRecorder();
 	}
 
-	
+	/**
+	 * Allows the PDP current, and other sensors to update periodically. 
+	 * TODO: think about putting this in a seprate thread.
+	 */
 	public void initDefaultCommand() {
         setDefaultCommand(new DataLoggerScannerCmd());
     }
 
+	// the following update the DataFields of the DataCollator.
+	
+	
 	public void setTotalCurrent() {
 		DataCollator.totalCurrent.setVal(powerPanel.getTotalCurrent());		
 	}
@@ -64,7 +78,6 @@ public class DataLoggerFetcher extends Subsystem {
 	public void setCurrent15() {
 		DataCollator.current15.setVal(powerPanel.getCurrent(15));
 	}
-	
 	public void setVoltage() {
 		DataCollator.batteryVoltage.setVal(powerPanel.getVoltage());
 	}

@@ -10,7 +10,13 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
+ * The interface between the robot code and the actuators and sensors involved in moving the robot. 
+ * Right now this is just the motors and gyro, but this will probably grow to include encoders. 
+ * 
+ * TODO: add getter and setter methods for the other method of the CANTalon classes.
+ * 
  * @author Baxter Ellard
+ * @author David Matthews
  */
 public class DriveTrain extends Subsystem {
 	
@@ -20,8 +26,12 @@ public class DriveTrain extends Subsystem {
 	private CANTalon right1 = new CANTalon(RobotMap.RIGHT_DRIVE1);
 	private CANTalon right2 = new CANTalon(RobotMap.RIGHT_DRIVE2);
 	
+	// Sensors
 	private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 	
+	/**
+	 * Constructor, sets up motors, prevents brownouts and minimizes pedestrian casualties. 
+	 */
 	public DriveTrain() {
 		
 		right1.setInverted(true);
@@ -38,13 +48,24 @@ public class DriveTrain extends Subsystem {
 		left2.setVoltageRampRate(24);
 	}
 	
-	
+	/**
+	 * ArcadeDriveCmd will always run when other commands are not busy.
+	 * This will allow operator control when the robot is not driving itself around.
+	 */
     public void initDefaultCommand() {
     	
     	setDefaultCommand(new ArcadeDriveCmd());
     	
     }
     
+    /**
+     * Updates the motors with what speed to drive at.
+     * TODO: what is the robot "Front", and what value is that? 1 or -1?
+     * TODO: Use the custom joystick that Owen made
+     * 
+     * @param leftPower		Double speed of left motors. Range -1 to 1
+     * @param rightPower	Double speed of right motors. Range -1 to 1
+     */
     public void driveLR(double leftPower, double rightPower) {
     	
     	left1.set(leftPower);
@@ -57,30 +78,49 @@ public class DriveTrain extends Subsystem {
 
     }
     
+    /**
+     * Sets the motors to be off.
+     */
     public void stop() {
     	
     	this.driveLR(0, 0);
    
     }
     
+    
+    /**
+     * Calibrates gyro (takes 5 seconds while robot does nothing)
+     * Do this when robot first turns on.
+     */
     public void calibrateGyro() {
     	
     	gyro.calibrate();
     	
     }
     
+    /**
+     * Sets the drivetrain gyro back to 0 degrees
+     */
     public void resetGyro() {
     	
     	gyro.reset();
     	
     }
     
+    /**
+     * @return the current rate of turning in degrees per second
+     */
     public double getGyroRate() {
     	
     	return gyro.getRate();
     	
     }
     
+    /**
+     * 
+     * @return gets an approximation of the gyro angle since reset was last called from an accumulation using the FPGA. Will accumulate error over time.
+     * 
+     */
     public double getGyroAngle() {
     	
     	return gyro.getAngle();
