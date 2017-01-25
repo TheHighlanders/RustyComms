@@ -19,14 +19,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author David Matthews
  */
 public class Robot extends IterativeRobot {
-<<<<<<< HEAD
+
 	public static final DriveTrain dt = new DriveTrain();
-=======
 
 	/**
 	 * Creates a DataLoggerFetcher subsystem object which starts the logging publisher thread for the Data Logger.
 	 */
->>>>>>> origin/Elon
 	public static DataLoggerFetcher dlf = new DataLoggerFetcher();
 	
 	/**

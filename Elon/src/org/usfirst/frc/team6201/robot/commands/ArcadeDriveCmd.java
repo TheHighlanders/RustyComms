@@ -10,14 +10,11 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
-<<<<<<< HEAD
  * NEEDS TO BE REWRITTEN!!!
-=======
  * This command interfaces between the Operator Interface object (Robot.oi) and the DriveTrain object (Robot.dt)
  * to provide smooth intuitive joystick control with fine control at slow speeds, while still being able to reach full speed.
  * Recently added support for a third axis to control the sensitivity of the joystick.
  *
->>>>>>> origin/Elon
  *@author David Matthews
  *@author Adriana Massie
  *
@@ -95,15 +92,10 @@ public class ArcadeDriveCmd extends Command {
      * Updates the DataLogger's state value, and resets the gyro to prepare for the start of the command
      */
     protected void initialize() {
-<<<<<<< HEAD
     	//Robot.dt.calibrateGyro(); removed after reading.
-    	Robot.dt.resetGyro();
-    	dataLogger.DataCollator.state.setVal("ArcadeDriveCmdInit"); 	
-=======
     	Robot.dt.resetGyro();
     	DataCollator.state.setVal("ArcadeDriveCmdInit");
     	
->>>>>>> origin/Elon
     }
 
     /**
@@ -113,11 +105,9 @@ public class ArcadeDriveCmd extends Command {
      * TODO: The auto gyro correction does not work very well, look into why it is not working and try to fix it or remove it.
      */
     protected void execute() {
-<<<<<<< HEAD
     	dataLogger.DataCollator.state.setVal("ArcadeDriveCmdExecute");
     	rawTurn = scaledValTan(Robot.oi.getXAxisOfLogitech(), TANDOMAIN_X);
     	rawPower = scaledValTan(Robot.oi.getYAxisOfLogitech(), TANDOMAIN_Y);
-=======
     	// update that datalogger state
     	DataCollator.state.setVal("ArcadeDriveCmdExecute");
     	
@@ -130,7 +120,6 @@ public class ArcadeDriveCmd extends Command {
     	// to get a desired turn amount and a desired forward motion speed
     	tanTurn = scaledValTan(joystickX * joystickSlider, TANDOMAIN_X);
     	tanPower = scaledValTan(joystickY * joystickSlider, TANDOMAIN_Y);
->>>>>>> origin/Elon
     	
     	// calculate actual ability of robot by reserving 5% of motor speed for turning at all times
       	processedPower = 0.95*tanPower;
