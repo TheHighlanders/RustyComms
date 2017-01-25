@@ -26,6 +26,9 @@ public class DriveTrain extends Subsystem {
 	private CANTalon right1 = new CANTalon(RobotMap.RIGHT_DRIVE1);
 	private CANTalon right2 = new CANTalon(RobotMap.RIGHT_DRIVE2);
 	
+	//whether this is public or not is TBD
+	public static int fowardOrReverse = 1;
+	
 	// Sensors
 	private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 	

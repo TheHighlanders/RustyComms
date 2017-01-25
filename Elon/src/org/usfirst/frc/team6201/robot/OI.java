@@ -54,7 +54,7 @@ public class OI {
 	 */
 	public double getSliderAxisOfArcade() {
 		
-		return arcade.getRawAxis(RobotMap.LOGITECH_Z_AXIS);
+		return arcade.getRawAxis(RobotMap.LOGITECH_SLIDER_AXIS);
 		
 	}
 }

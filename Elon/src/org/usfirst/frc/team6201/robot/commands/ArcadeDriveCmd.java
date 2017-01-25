@@ -4,10 +4,9 @@ package org.usfirst.frc.team6201.robot.commands;
 import org.usfirst.frc.team6201.robot.Robot;
 import org.usfirst.frc.team6201.robot.RobotMap;
 import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
+import org.usfirst.frc.team6201.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * NEEDS TO BE REWRITTEN!!!
@@ -105,9 +104,7 @@ public class ArcadeDriveCmd extends Command {
      * TODO: The auto gyro correction does not work very well, look into why it is not working and try to fix it or remove it.
      */
     protected void execute() {
-    	dataLogger.DataCollator.state.setVal("ArcadeDriveCmdExecute");
-    	rawTurn = scaledValTan(Robot.oi.getXAxisOfLogitech(), TANDOMAIN_X);
-    	rawPower = scaledValTan(Robot.oi.getYAxisOfLogitech(), TANDOMAIN_Y);
+    	
     	// update that datalogger state
     	DataCollator.state.setVal("ArcadeDriveCmdExecute");
     	
@@ -133,10 +130,10 @@ public class ArcadeDriveCmd extends Command {
     	// Calculates the speed of the wheels to achieve the desired turning rate
     	// Checks which side of the robot is considered the "front", and inverts the Robot.dt.driveLR() parameters if needed
     	// TODO: move RobotMap.fowardOrReverse to DriveTrain.java
-    	if (RobotMap.fowardOrReverse == 1){
-        	Robot.dt.driveLR(RobotMap.fowardOrReverse*(processedPower + processedTwiceTurn), RobotMap.fowardOrReverse*(processedPower - processedTwiceTurn));
+    	if (DriveTrain.fowardOrReverse == 1){
+        	Robot.dt.driveLR(DriveTrain.fowardOrReverse*(processedPower + processedTwiceTurn), DriveTrain.fowardOrReverse*(processedPower - processedTwiceTurn));
     	} else {
-    		Robot.dt.driveLR(RobotMap.fowardOrReverse*(processedPower - processedTwiceTurn), RobotMap.fowardOrReverse*(processedPower + processedTwiceTurn));
+    		Robot.dt.driveLR(DriveTrain.fowardOrReverse*(processedPower - processedTwiceTurn), DriveTrain.fowardOrReverse*(processedPower + processedTwiceTurn));
     	}
 	}
 
