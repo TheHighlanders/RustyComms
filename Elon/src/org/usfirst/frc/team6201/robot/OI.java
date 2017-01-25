@@ -33,7 +33,7 @@ public class OI {
 	 * Range of -1 to 1
 	 * TODO: is all the way to the right -1 or 1?
 	 */
-	public double getXAxisOfLogitech() {
+	public double getXAxisOfArcade() {
 		
 		return arcade.getRawAxis(RobotMap.LOGITECH_X_AXIS);
 	}

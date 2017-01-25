@@ -13,3 +13,9 @@ joystick
 logitech
 dashboard
 driverstation
+tele
+adriana
+massie
+brownouts
+owen
+drivetrain

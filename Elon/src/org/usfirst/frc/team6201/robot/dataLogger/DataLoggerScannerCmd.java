@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
+ * Uses the DataLoggerFetcher subsystem to update the values stored in the DataCollator class.
+ * 
  *@author David Matthews
  */
 public class DataLoggerScannerCmd extends Command {
@@ -20,7 +22,9 @@ public class DataLoggerScannerCmd extends Command {
     protected void initialize() {
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Calls a bunch of methods in the Robot.dlf subsystem in order to update the DataCollator's DataField object's values.
+     */
     protected void execute() {
     	Robot.dlf.setAccelX();
     	Robot.dlf.setAccelY();
@@ -37,17 +41,22 @@ public class DataLoggerScannerCmd extends Command {
     	Robot.dlf.setVoltage();
        }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     * This command should always run
+     */
     protected boolean isFinished() {
         return false;
     }
 
-    // Called once after isFinished returns true
+    /**
+     * No cleanup required
+     */
     protected void end() {
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * May occur if the robot tells the data logger recorder to stop logging
+     */
     protected void interrupted() {
     }
 }
