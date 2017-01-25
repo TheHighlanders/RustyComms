@@ -7,6 +7,7 @@ package org.usfirst.frc.team6201.robot;
  * floating around.
  * 
  * @author David Matthews
+ * @author Baxter Ellard
  * 
  */
 public class RobotMap {

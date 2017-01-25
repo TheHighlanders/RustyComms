@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  *@author David Matthews
  *@author Adriana Massie
+ *@author Baxter Ellard
  *
  */
 
