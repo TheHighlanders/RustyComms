@@ -16,13 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * This class is automatically run when the robot first boots up.
  * Each of the methods are called at their appropriate parts of the game.
  * 
-<<<<<<< HEAD
- * fdiusgalycgiufcht9jeouyj
-=======
- * HERE IS A CONFLICT THAT WE WILL FIX!
->>>>>>> 0b2fb3aa2a71db02d736d4660c3993e72fa2c208
- * 
  * @author David Matthews
+ * 
  */
 public class Robot extends IterativeRobot {
 
