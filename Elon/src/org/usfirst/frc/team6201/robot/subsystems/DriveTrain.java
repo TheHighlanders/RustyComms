@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * @author Baxter Ellard
  */
 public class DriveTrain extends Subsystem {
-
+	
+	//CANTalon refers to a motor controller, so it means a motor for all intents & purposes.
 	private CANTalon left1 = new CANTalon(RobotMap.LEFT_DRIVE1);
 	private CANTalon left2 = new CANTalon(RobotMap.LEFT_DRIVE2);
 	private CANTalon right1 = new CANTalon(RobotMap.RIGHT_DRIVE1);

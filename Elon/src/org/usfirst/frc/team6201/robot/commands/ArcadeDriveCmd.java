@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
+ * NEEDS TO BE REWRITTEN!!!
  *@author David Matthews
  */
 public class ArcadeDriveCmd extends Command {
@@ -50,15 +51,14 @@ public class ArcadeDriveCmd extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-//    	Robot.dt.calibrateGyro(); removed after reading.
+    	//Robot.dt.calibrateGyro(); removed after reading.
     	Robot.dt.resetGyro();
-    	 dataLogger.DataCollator.state.setVal("ArcadeDriveCmdInit");
-    	
+    	dataLogger.DataCollator.state.setVal("ArcadeDriveCmdInit"); 	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	 dataLogger.DataCollator.state.setVal("ArcadeDriveCmdExecute");
+    	dataLogger.DataCollator.state.setVal("ArcadeDriveCmdExecute");
     	rawTurn = scaledValTan(Robot.oi.getXAxisOfLogitech(), TANDOMAIN_X);
     	rawPower = scaledValTan(Robot.oi.getYAxisOfLogitech(), TANDOMAIN_Y);
     	

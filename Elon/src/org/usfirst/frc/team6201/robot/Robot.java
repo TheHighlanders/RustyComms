@@ -2,6 +2,7 @@
 package org.usfirst.frc.team6201.robot;
 
 import org.usfirst.frc.team6201.robot.subsystems.DataLoggerFetcher;
+import org.usfirst.frc.team6201.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -19,7 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+	public static final DriveTrain dt = new DriveTrain();
 	public static DataLoggerFetcher dlf = new DataLoggerFetcher();
 	
 	//initialize this in robotInit or you'll get no robot code
