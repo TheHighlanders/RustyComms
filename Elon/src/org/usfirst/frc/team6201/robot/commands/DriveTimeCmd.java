@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * 
- * Time that robot drives (correct me if I'm wrong)
+ * Drives robot forwards for X seconds
  * 
  * @author Baxter Ellard
  *
@@ -22,6 +22,12 @@ public class DriveTimeCmd extends Command {
 	
 	private double drivingTime;
 	
+	/**
+	 * 
+	 * Stores double of seconds you want to drive for.
+	 * 
+	 * @param drivingTime	Number of seconds you want to drive forward
+	 */
 	public DriveTimeCmd(double drivingTime) {
 		
 		this.drivingTime = drivingTime;
@@ -29,6 +35,11 @@ public class DriveTimeCmd extends Command {
 		
 	}
 	
+	/**
+	 * 
+	 * Starts timer from 0.
+	 * 
+	 */
 	protected void initialize() {
 	
 		timer.start();
@@ -38,25 +49,39 @@ public class DriveTimeCmd extends Command {
 		
 	}
 
+	/**
+	 * Is true if we have finished driving.
+	 */
 	protected boolean isFinished() {
 
-		return true;
+		return timer.get() >= drivingTime;
 
 	}
 	
+	/**
+	 * 
+	 * TODO: Add math for encoders once encoders are installed on robot 
+	 * TODO: Tune gyro params to aid in driving in a straight line
+	 * 
+	 */
 	public void execute() {
 		
 		DataCollator.state.setVal("DriveTimeCmdExecute");
 	
-		while(timer.get() < drivingTime) {
+		if(isFinished()) {
 			
-			calibrated = ((0.8 - 0.05 * Robot.dt.getGyroAngle()) * 0.05);
-			System.out.println("driving");
+			return;
+			
+		} else {
+			
 			Robot.dt.driveLR(0.5, 0.5);
 			
 		}
 		
+		
+		
 	}
+	
 	
 	protected void end() {
 		
