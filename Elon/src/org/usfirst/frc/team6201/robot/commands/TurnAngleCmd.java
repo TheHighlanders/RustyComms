@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * 
- * @author Baxter Ellard
- * 
  * Turns the robot from its current angle X degrees.
+ *
+ * @author Baxter Ellard
  *
  */
 
@@ -15,14 +15,21 @@ public class TurnAngleCmd extends Command {
 	
 	private double turn;
 	private double scalarOnTurn = 1/3;
-	private double rotation;
+	private double targetRotation;
 	private double acceptedError;
+	private double currentError;
 	
-	public TurnAngleCmd(double rotation, double acceptedError) {
+	/**
+	 * Constructor
+	 * 
+	 * @param targetRotation			Degrees to turn the robot (pos = clockwise, neg = counterclockwise)
+	 * @param acceptedError		The difference between desired and current positions of our robot at which point this command will stop running.
+	 */
+	public TurnAngleCmd(double targetRotation, double acceptedError) {
 	
 		requires(Robot.dt);
 		
-		this.rotation = rotation;
+		this.targetRotation = targetRotation;
 		this.acceptedError = acceptedError;
 	
 	}
@@ -35,9 +42,9 @@ public class TurnAngleCmd extends Command {
 	
 	protected void execute() {
 		
-		while(!(Math.abs(Robot.dt.getGyroAngle() - rotation) <= acceptedError)) {
+		while(!(Math.abs(Robot.dt.getGyroAngle() - targetRotation) <= acceptedError)) {
 			
-			turn = scalarOnTurn*(Robot.dt.getGyroAngle() - rotation);
+			turn = scalarOnTurn*(Robot.dt.getGyroAngle() - targetRotation);
 			Robot.dt.driveLR(turn, -turn);
 			
 		}
@@ -46,7 +53,9 @@ public class TurnAngleCmd extends Command {
 
 	protected boolean isFinished() {
 	
-		return true;
+		currentError = targetRotation - Robot.dt.getGyroAngle();
+		
+		return Math.abs(currentError) < acceptedError;
 	
 	}
 	

@@ -1,6 +1,10 @@
 package org.usfirst.frc.team6201.robot;
 
+import org.usfirst.frc.team6201.robot.commands.TurnAngleCmd;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This provides the framework to connect the DriverStation to the Robot both for getting values from the joystick(s), 
@@ -57,4 +61,15 @@ public class OI {
 		return arcade.getRawAxis(RobotMap.LOGITECH_SLIDER_AXIS);
 		
 	}
+
+	public OI() {
+		
+		Button button12 = new JoystickButton(arcade, 12);
+		
+		button12.whenPressed(new TurnAngleCmd(90, 5));
+		
+	}
+	
 }
+
+
