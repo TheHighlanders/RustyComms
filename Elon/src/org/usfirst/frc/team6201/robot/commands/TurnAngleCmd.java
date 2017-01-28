@@ -8,29 +8,46 @@ import edu.wpi.first.wpilibj.command.Command;
  * Turns the robot from its current angle X degrees.
  *
  * @author Baxter Ellard
+ * @author Adriana Massie 
  *
  */
 
 public class TurnAngleCmd extends Command {
 	
-	private double turn;
-	private double scalarOnTurn = 1/3;
+	/**
+	 * turnSpeed is the speed that the robot turns at depends on currentAngleOffset 
+	 */
+	private double turnSpeed;
+	/**
+	 * targetRotation is how far we want to turn the robot from the inital conditions 
+	 */
 	private double targetRotation;
-	private double acceptedError;
-	private double currentError;
+	/**
+	 *  acceptedAngleOffset is the difference between desired and current positions of our robot at which point this command will stop running.
+	 */
+	private double acceptedAngleOffset;
+	/**
+	 * currentAngleOffset the difference between targetRotion and current angle of the robot
+	 */
+	private double currentAngleOffset;
+	/**
+	 * MAXSPEEDTHRESH is the angleOffSet where you rotate full speed  
+	 */
+	private final double MAXSPEEDTHRESH = 42;
+	
 	
 	/**
 	 * Constructor
 	 * 
 	 * @param targetRotation			Degrees to turn the robot (pos = clockwise, neg = counterclockwise)
-	 * @param acceptedError		The difference between desired and current positions of our robot at which point this command will stop running.
+	 * @param acceptedAngleOffset		The difference between desired and current positions of our robot at which point this command will stop running.
 	 */
-	public TurnAngleCmd(double targetRotation, double acceptedError) {
+	public TurnAngleCmd(double targetRotation, double acceptedAngleOffset) {
 	
 		requires(Robot.dt);
 		
 		this.targetRotation = targetRotation;
-		this.acceptedError = acceptedError;
+		this.acceptedAngleOffset = acceptedAngleOffset;
 	
 	}
 	
@@ -40,22 +57,34 @@ public class TurnAngleCmd extends Command {
 	
 	}
 	
+	/**
+	 * This method calcutate the speed of the motor based off of currentAngleOffset
+	 */
 	protected void execute() {
 		
-		while(!(Math.abs(Robot.dt.getGyroAngle() - targetRotation) <= acceptedError)) {
-			
-			turn = scalarOnTurn*(Robot.dt.getGyroAngle() - targetRotation);
-			Robot.dt.driveLR(turn, -turn);
-			
+		currentAngleOffset = targetRotation - Robot.dt.getGyroAngle();
+		
+		if (currentAngleOffset >= MAXSPEEDTHRESH){
+			Robot.dt.driveLR(1,-1);
+		}
+		
+		else if (currentAngleOffset <= -MAXSPEEDTHRESH){
+			Robot.dt.driveLR(-1,1);
+		}
+	
+		else { 
+			turnSpeed = 1 / MAXSPEEDTHRESH * currentAngleOffset 
+			Robot.dt.driveLR(turnSpeed,-turnSpeed)
+				
 		}
 		
 	}
 
 	protected boolean isFinished() {
 	
-		currentError = targetRotation - Robot.dt.getGyroAngle();
+		currentAngleOffset = targetRotation - Robot.dt.getGyroAngle();
 		
-		return Math.abs(currentError) < acceptedError;
+		return Math.abs(currentAngleOffset) < acceptedAngleOffset;
 	
 	}
 	
