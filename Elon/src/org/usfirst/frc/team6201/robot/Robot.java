@@ -3,6 +3,7 @@ package org.usfirst.frc.team6201.robot;
 
 import org.usfirst.frc.team6201.robot.subsystems.DataLoggerFetcher;
 import org.usfirst.frc.team6201.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team6201.robot.subsystems.GearVisionAuto;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -21,12 +22,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
+	
+	/**
+	 * Creates a DriveTrain subsystem object which enables moving the robot around.
+	 */
 	public static final DriveTrain dt = new DriveTrain();
 
 	/**
 	 * Creates a DataLoggerFetcher subsystem object which starts the logging publisher thread for the Data Logger.
 	 */
 	public static DataLoggerFetcher dlf = new DataLoggerFetcher();
+	
+	/**
+	 * Creates a GearVisionAuto subsystem which prepares for receiving of target information,
+	 * and informs the DS when the robot is able to complete the gear delivery routine. 
+	 */
+	public static GearVisionAuto gva = new GearVisionAuto();
 	
 	/**
 	 * Declare the Operator Interface object.
@@ -42,12 +53,12 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
-	 * TODO: calibrate our gyro here.
 	 * TODO: look up how calibration works if we have multiple gyro objects. Maybe chief delphi
 	 */
 	@Override
 	public void robotInit() {
 		oi = new OI();
+		dt.calibrateGyro();
 		
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());

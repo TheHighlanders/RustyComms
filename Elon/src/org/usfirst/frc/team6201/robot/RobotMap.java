@@ -23,10 +23,10 @@ public class RobotMap {
 	
 	
 	//ADD NUMBERS AS THEY ARE ON THE ROBOT
-	public static final int LEFT_DRIVE1 = 0;
-	public static final int LEFT_DRIVE2 = 0;
-	public static final int RIGHT_DRIVE1 = 0;
-	public static final int RIGHT_DRIVE2 = 0;
+	public static final int LEFT_DRIVE1 = 1;
+	public static final int LEFT_DRIVE2 = 2;
+	public static final int RIGHT_DRIVE1 = 3;
+	public static final int RIGHT_DRIVE2 = 4;
 	
 	public static final int ARCADE = 0;
 	public static final int LOGITECH = 1;

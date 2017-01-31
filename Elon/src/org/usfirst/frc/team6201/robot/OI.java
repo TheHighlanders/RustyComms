@@ -20,8 +20,7 @@ public class OI {
 	
 	/**
 	 * @return  a double corresponding to how much the joystick's handle is rotated.
-	 * This has a range of -1 to 1
-	 * TODO: is all the way to the right -1 or 1?
+	 * This has a range of -1 to 1. All the way to the right is +1.
 	 */
 	public double getRotationAxisOfArcade() {
 		
@@ -30,8 +29,7 @@ public class OI {
 	
 	/**
 	 * @return a double corresponding to the position of the joystick in the side to side direction (X axis).
-	 * Range of -1 to 1
-	 * TODO: is all the way to the right -1 or 1?
+	 * Range of -1 to 1. All the way to the right is +1.
 	 */
 	public double getXAxisOfArcade() {
 		
