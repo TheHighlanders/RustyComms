@@ -36,6 +36,10 @@ public class DriveTrain extends Subsystem {
 	 * Constructor, sets up motors, prevents brownouts and minimizes pedestrian casualties. 
 	 */
 	public DriveTrain() {
+		left1 = new CANTalon(RobotMap.LEFT_DRIVE1);
+		left2 = new CANTalon(RobotMap.LEFT_DRIVE2);
+		right1 = new CANTalon(RobotMap.RIGHT_DRIVE1);
+		right2 = new CANTalon(RobotMap.RIGHT_DRIVE2);
 		
 		right1.setInverted(true);
 		right2.setInverted(true);
@@ -50,10 +54,7 @@ public class DriveTrain extends Subsystem {
 		left1.setVoltageRampRate(24);
 		left2.setVoltageRampRate(24);
 		
-		left1 = new CANTalon(RobotMap.LEFT_DRIVE1);
-		left2 = new CANTalon(RobotMap.LEFT_DRIVE2);
-		right1 = new CANTalon(RobotMap.RIGHT_DRIVE1);
-		right2 = new CANTalon(RobotMap.RIGHT_DRIVE2);
+		
 	}
 	
 	/**

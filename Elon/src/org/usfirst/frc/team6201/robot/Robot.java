@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team6201.robot;
 
+import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
 import org.usfirst.frc.team6201.robot.subsystems.DataLoggerFetcher;
 import org.usfirst.frc.team6201.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6201.robot.subsystems.GearVisionAuto;
@@ -61,6 +62,8 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		dt.calibrateGyro();
 		
+		DataCollator.state.setVal("RobotInit");
+		
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		//TODO: implement this for our different auto routines.
@@ -74,7 +77,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		DataCollator.state.setVal("RobotDisabledInit");
 	}
 
 	/**
@@ -83,6 +86,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledPeriodic() {
+		DataCollator.state.setVal("RobotDisabledPeriodic");
 		Scheduler.getInstance().run();
 		if (dlf.getStopOnNextDisable()){
 			dlf.stopLoggingRecorder();
@@ -95,6 +99,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		DataCollator.state.setVal("RobotAutonomousInit");
 		autonomousCommand = chooser.getSelected();
 		if (DriverStation.getInstance().isFMSAttached()){
 			dlf.triggerStopOnNextDisable();
@@ -117,15 +122,17 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		DataCollator.state.setVal("RobotAutonomousPeriodic");
 		Scheduler.getInstance().run();
 	}
 
 	/**
-	 * This method is called just before the tele operated period of the begins. Add any setup here.
+	 * This method is called just before the tele-operated period of the begins. Add any setup here.
 	 * 
 	 */
 	@Override
 	public void teleopInit() {
+		DataCollator.state.setVal("RobotTeleopInit");
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -140,6 +147,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		DataCollator.state.setVal("RobotTeleopPeriodic");
 		Scheduler.getInstance().run();
 	}
 

@@ -1,6 +1,9 @@
 package org.usfirst.frc.team6201.robot.commands;
 
 import org.usfirst.frc.team6201.robot.Robot;
+import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -54,6 +57,8 @@ public class TurnAngleCmd extends Command {
 	protected void initialize() {
 		
 		Robot.dt.resetGyro();
+		currentAngleOffset = targetRotation - Robot.dt.getGyroAngle();
+		DataCollator.state.setVal("TurnAngleCmdInit");
 	
 	}
 	
@@ -61,8 +66,9 @@ public class TurnAngleCmd extends Command {
 	 * This method calculate the speed of the motor based off of currentAngleOffset
 	 */
 	protected void execute() {
-		
+		DataCollator.state.setVal("TurnAngleCmdExecute");
 		currentAngleOffset = targetRotation - Robot.dt.getGyroAngle();
+		DriverStation.reportWarning("Gyro Angle is, in execute, right now: " + Robot.dt.getGyroAngle(), false);
 		
 		if (currentAngleOffset >= MAXSPEEDTHRESH){
 			Robot.dt.driveLR(1,-1);
@@ -81,15 +87,13 @@ public class TurnAngleCmd extends Command {
 	}
 
 	protected boolean isFinished() {
-	
-		currentAngleOffset = targetRotation - Robot.dt.getGyroAngle();
-		
+		DriverStation.reportWarning("Gyro Angle is, in isFinish, right now: " + Robot.dt.getGyroAngle(), false);
 		return Math.abs(currentAngleOffset) < acceptedAngleOffset;
 	
 	}
 	
 	protected void end() {
-		
+		DataCollator.state.setVal("TurnAngleCmdEnd");
 		Robot.dt.stop();
 	
 	}
