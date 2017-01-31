@@ -21,10 +21,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class DriveTrain extends Subsystem {
 	
 	//CANTalon refers to a motor controller, so it means a motor for all intents & purposes.
-	private CANTalon left1 = new CANTalon(RobotMap.LEFT_DRIVE1);
-	private CANTalon left2 = new CANTalon(RobotMap.LEFT_DRIVE2);
-	private CANTalon right1 = new CANTalon(RobotMap.RIGHT_DRIVE1);
-	private CANTalon right2 = new CANTalon(RobotMap.RIGHT_DRIVE2);
+	private CANTalon left1;
+	private CANTalon left2;
+	private CANTalon right1;
+	private CANTalon right2;
 	
 	//whether this is public or not is TBD
 	public static int fowardOrReverse = 1;
@@ -49,6 +49,11 @@ public class DriveTrain extends Subsystem {
 		right2.setVoltageRampRate(24);
 		left1.setVoltageRampRate(24);
 		left2.setVoltageRampRate(24);
+		
+		left1 = new CANTalon(RobotMap.LEFT_DRIVE1);
+		left2 = new CANTalon(RobotMap.LEFT_DRIVE2);
+		right1 = new CANTalon(RobotMap.RIGHT_DRIVE1);
+		right2 = new CANTalon(RobotMap.RIGHT_DRIVE2);
 	}
 	
 	/**
