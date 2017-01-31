@@ -39,12 +39,7 @@ public class ArcadeDriveCmd extends Command {
 	 * Calculates how much the robot can turn based on what the processedPower is, how much room we have to play with the motors
 	 * and how much turning is desired.
 	 */
-	private double processedOnceTurn; 
-	
-	/**
-	 * 
-	 */
-	private double processedTwiceTurn;
+	private double processedTurn; 
 	
 	/**
 	 * reserves 5% for turning at all times.
@@ -61,14 +56,6 @@ public class ArcadeDriveCmd extends Command {
 	 */
 	private final double TANDOMAIN_X = 1.2; // used for sensitivity of joystick // changed after reading competition
 	
-	/**
-	 * TODO:
-	 */
-	private final double pTurnGain = 0.05; // This is used for allowing us to drive in a straight line.
-											//We MUST test to find the appropriate  value for this.
-	private final double gyroRateGain = 0.05; // This is used to make the desired turn rate as output by the Joystick match the 
-	
-
 	/**
 	 * 
 	 * @param rawVal	Value to be processed by the tangent function
@@ -92,8 +79,7 @@ public class ArcadeDriveCmd extends Command {
      * Updates the DataLogger's state value, and resets the gyro to prepare for the start of the command
      */
     protected void initialize() {
-    	//Robot.dt.calibrateGyro(); removed after reading.
-    	Robot.dt.resetGyro();
+
     	DataCollator.state.setVal("ArcadeDriveCmdInit");
     	
     }
@@ -123,18 +109,15 @@ public class ArcadeDriveCmd extends Command {
       	processedPower = 0.95*tanPower;
       	
       	// Combine the desired turn rate with how much the motors are not using.
-    	processedOnceTurn = (1-processedPower) * tanTurn; 
+    	processedTurn = (1-Math.abs(processedPower)) * tanTurn; 
     	
-    	// attempt to use the gyro as a feedback to drive in a straight line or at a constant curve. probably should remove this, or use encoders instead. 
-    	processedTwiceTurn = (processedOnceTurn - gyroRateGain*Robot.dt.getGyroRate())*pTurnGain + processedOnceTurn; // uses the gyro as a feedback loop to drive at the desired turn rate. 
-
-    	// Calculates the speed of the wheels to achieve the desired turning rate
+     	// Calculates the speed of the wheels to achieve the desired turning rate
     	// Checks which side of the robot is considered the "front", and inverts the Robot.dt.driveLR() parameters if needed
     	// TODO: move RobotMap.fowardOrReverse to DriveTrain.java
     	if (DriveTrain.fowardOrReverse == 1){
-        	Robot.dt.driveLR(DriveTrain.fowardOrReverse*(processedPower + processedTwiceTurn), DriveTrain.fowardOrReverse*(processedPower - processedTwiceTurn));
+        	Robot.dt.driveLR((processedPower + processedTurn), (processedPower - processedTurn));
     	} else {
-    		Robot.dt.driveLR(DriveTrain.fowardOrReverse*(processedPower - processedTwiceTurn), DriveTrain.fowardOrReverse*(processedPower + processedTwiceTurn));
+    		Robot.dt.driveLR(-1 * (processedPower - processedTurn), -1 * (processedPower + processedTurn));
     	}
 	}
 
