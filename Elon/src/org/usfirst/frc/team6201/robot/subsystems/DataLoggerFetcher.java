@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.interfaces.Accelerometer;
  *@author David Matthews
  */
 public class DataLoggerFetcher extends Subsystem {
+	private boolean stopOnNextDisable = false;
 	private PowerDistributionPanel powerPanel;
 	private	ADXRS450_Gyro gyro;
 	private ADXL362 accel;
@@ -51,12 +52,20 @@ public class DataLoggerFetcher extends Subsystem {
 
 	/**
 	 * Allows the PDP current, and other sensors to update periodically. 
-	 * TODO: think about putting this in a seprate thread.
+	 * TODO: think about putting this in a separate thread.
 	 */
 	public void initDefaultCommand() {
         setDefaultCommand(new DataLoggerScannerCmd());
     }
 
+	public void triggerStopOnNextDisable(){
+		stopOnNextDisable = true;
+	}
+	public boolean getStopOnNextDisable(){
+		return stopOnNextDisable;
+		
+	}
+	
 	// the following update the DataFields of the DataCollator.
 	
 	

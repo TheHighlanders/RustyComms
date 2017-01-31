@@ -5,6 +5,7 @@ import org.usfirst.frc.team6201.robot.subsystems.DataLoggerFetcher;
 import org.usfirst.frc.team6201.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6201.robot.subsystems.GearVisionAuto;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -83,6 +84,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		if (dlf.getStopOnNextDisable()){
+			dlf.stopLoggingRecorder();
+		}
 	}
 
 	/**
@@ -92,6 +96,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
+		if (DriverStation.getInstance().isFMSAttached()){
+			dlf.triggerStopOnNextDisable();
+		}
 
 		
 //		  String autoSelected = SmartDashboard.getString("Auto Selector", "Default"); switch(autoSelected) {
