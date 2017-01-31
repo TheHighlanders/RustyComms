@@ -38,6 +38,8 @@ public class TurnAngleCmd extends Command {
 	 */
 	private final double MAXSPEEDTHRESH = 42;
 	
+	private boolean needReInit = true;
+	
 	
 	/**
 	 * Constructor
@@ -59,6 +61,7 @@ public class TurnAngleCmd extends Command {
 		Robot.dt.resetGyro();
 		currentAngleOffset = targetRotation - Robot.dt.getGyroAngle();
 		DataCollator.state.setVal("TurnAngleCmdInit");
+		needReInit = false;
 	
 	}
 	
@@ -66,6 +69,9 @@ public class TurnAngleCmd extends Command {
 	 * This method calculate the speed of the motor based off of currentAngleOffset
 	 */
 	protected void execute() {
+		if (needReInit){
+			initialize();
+		}
 		DataCollator.state.setVal("TurnAngleCmdExecute");
 		currentAngleOffset = targetRotation - Robot.dt.getGyroAngle();
 		DriverStation.reportWarning("Gyro Angle is, in execute, right now: " + Robot.dt.getGyroAngle(), false);
@@ -93,7 +99,9 @@ public class TurnAngleCmd extends Command {
 	}
 	
 	protected void end() {
+		needReInit = true;
 		DataCollator.state.setVal("TurnAngleCmdEnd");
+		
 		Robot.dt.stop();
 	
 	}
