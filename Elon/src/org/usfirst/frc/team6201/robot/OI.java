@@ -20,7 +20,7 @@ public class OI {
 	 * Create an object out of our logitech arcade joystick.
 	 * This allows us to get the  current position of the joystick, and the state of all the buttons.
 	 */
-	private Joystick arcade = new Joystick(RobotMap.ARCADE);
+	private Joystick logitech = new Joystick(RobotMap.LOGITECH);
 	
 	/**
 	 * @return  a double corresponding to how much the joystick's handle is rotated.
@@ -28,7 +28,7 @@ public class OI {
 	 */
 	public double getRotationAxisOfArcade() {
 		
-		return arcade.getRawAxis(RobotMap.LOGITECH_ROTATE_AXIS);
+		return logitech.getRawAxis(RobotMap.LOGITECH_ROTATE_AXIS);
 	}
 	
 	/**
@@ -37,7 +37,7 @@ public class OI {
 	 */
 	public double getXAxisOfArcade() {
 		
-		return arcade.getRawAxis(RobotMap.LOGITECH_X_AXIS);
+		return logitech.getRawAxis(RobotMap.LOGITECH_X_AXIS);
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class OI {
 	 */
 	public double getYAxisOfArcade() {
 		
-		return arcade.getRawAxis(RobotMap.LOGITECH_Y_AXIS);
+		return logitech.getRawAxis(RobotMap.LOGITECH_Y_AXIS);
 		
 	}
 	
@@ -56,13 +56,13 @@ public class OI {
 	 */
 	public double getSliderAxisOfArcade() {
 		
-		return arcade.getRawAxis(RobotMap.LOGITECH_SLIDER_AXIS);
+		return logitech.getRawAxis(RobotMap.LOGITECH_SLIDER_AXIS);
 		
 	}
 
 	public OI() {
 		
-		Button button12 = new JoystickButton(arcade, 12);
+		Button button12 = new JoystickButton(logitech, 12);
 		
 		button12.whenPressed(new TurnAngleCmd(90, 5));
 		

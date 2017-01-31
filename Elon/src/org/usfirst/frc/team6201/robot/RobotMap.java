@@ -28,7 +28,7 @@ public class RobotMap {
 	public static final int RIGHT_DRIVE1 = 3;
 	public static final int RIGHT_DRIVE2 = 4;
 	
-	public static final int ARCADE = 0;
+	
 	public static final int LOGITECH = 1;
 	public static final int LOGITECH_X_AXIS = 0;
 	public static final int LOGITECH_Y_AXIS = 1;

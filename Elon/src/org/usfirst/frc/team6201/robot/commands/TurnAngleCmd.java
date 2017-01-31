@@ -58,7 +58,7 @@ public class TurnAngleCmd extends Command {
 	}
 	
 	/**
-	 * This method calcutate the speed of the motor based off of currentAngleOffset
+	 * This method calculate the speed of the motor based off of currentAngleOffset
 	 */
 	protected void execute() {
 		
@@ -73,8 +73,8 @@ public class TurnAngleCmd extends Command {
 		}
 	
 		else { 
-			turnSpeed = 1 / MAXSPEEDTHRESH * currentAngleOffset 
-			Robot.dt.driveLR(turnSpeed,-turnSpeed)
+			turnSpeed = 1.0 / MAXSPEEDTHRESH * currentAngleOffset;
+			Robot.dt.driveLR(turnSpeed,-turnSpeed);
 				
 		}
 		
