@@ -13,6 +13,8 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import org.usfirst.frc.team6201.robot.RobotMap;
+
 public class DataLoggerPublisherThread extends Thread {
 
 	private DatagramSocket outSocket = null;
@@ -89,7 +91,7 @@ public class DataLoggerPublisherThread extends Thread {
 	private void sendData(String s) {
 		try {
 			buffer = s.getBytes();
-			DatagramPacket outPacket = new DatagramPacket(buffer, buffer.length, destaddress, 4445);
+			DatagramPacket outPacket = new DatagramPacket(buffer, buffer.length, destaddress, RobotMap.LOGGING_UDP_PORT);
 			outSocket.send(outPacket);
 			try {
 				sleep(SLEEP_TIME);

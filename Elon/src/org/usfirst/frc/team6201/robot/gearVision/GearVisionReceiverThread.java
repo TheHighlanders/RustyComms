@@ -5,6 +5,8 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 
+import org.usfirst.frc.team6201.robot.RobotMap;
+
 /**
  * 
  *
@@ -63,7 +65,7 @@ public class GearVisionReceiverThread extends Thread {
 	private void init () {
 		try {
 			
-			inputSocket = new DatagramSocket(5005);
+			inputSocket = new DatagramSocket(RobotMap.VISION_UDP_PORT);
 		}
 		catch (SocketException e){
 			//TODO: Log Messages -- Implement m
