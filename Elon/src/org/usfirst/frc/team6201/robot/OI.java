@@ -1,5 +1,8 @@
 package org.usfirst.frc.team6201.robot;
 
+import org.usfirst.frc.team6201.robot.commands.ClimbRope;
+import org.usfirst.frc.team6201.robot.commands.FallRope;
+import org.usfirst.frc.team6201.robot.commands.StopClimbing;
 import org.usfirst.frc.team6201.robot.commands.TurnAngleCmd;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -65,6 +68,15 @@ public class OI {
 		Button button12 = new JoystickButton(logitech, 12);
 		
 		button12.whenPressed(new TurnAngleCmd(90, 5));
+		
+		Button b1 = new JoystickButton(logitech, 1);
+		b1.whileHeld(new ClimbRope());
+		
+		Button b2 = new JoystickButton(logitech, 2);
+		b2.whileHeld(new StopClimbing());
+		
+		Button b3 = new JoystickButton(logitech, 3);
+		b3.whileHeld(new FallRope());
 		
 		
 	}

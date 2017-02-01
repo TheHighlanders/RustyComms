@@ -5,6 +5,7 @@ import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
 import org.usfirst.frc.team6201.robot.subsystems.DataLoggerFetcher;
 import org.usfirst.frc.team6201.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6201.robot.subsystems.GearVisionAuto;
+import org.usfirst.frc.team6201.robot.subsystems.RopeClimber;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -41,6 +42,8 @@ public class Robot extends IterativeRobot {
 	 */
 	public static GearVisionAuto gva = new GearVisionAuto();
 	
+	
+	public static RopeClimber rc = new RopeClimber();
 	/**
 	 * Declare the Operator Interface object.
 	 * DO NOT initialize it here that would cause No Robot Code to occur.
