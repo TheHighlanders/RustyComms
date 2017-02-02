@@ -41,8 +41,8 @@ public class DriveTrain extends Subsystem {
 		right1 = new CANTalon(RobotMap.RIGHT_DRIVE1);
 		right2 = new CANTalon(RobotMap.RIGHT_DRIVE2);
 		
-		right1.setInverted(true);
-		right2.setInverted(true);
+		left1.setInverted(true);
+		left2.setInverted(true);
 		
 		right1.setSafetyEnabled(true);
 		right2.setSafetyEnabled(true);

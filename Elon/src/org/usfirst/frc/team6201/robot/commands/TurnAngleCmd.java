@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * 
  * Turns the robot from its current angle X degrees.
+ * TODO: this way over turns!, maybe increase MAXSPEEDTHRESH, or maybe implment momentum correction through either encoders for Robot speed, or tracking the robot a few 100ms after the cmd thinks it's done.
+ * 
  *
  * @author Baxter Ellard
  * @author Adriana Massie 
