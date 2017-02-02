@@ -54,6 +54,11 @@ public class DriveTrain extends Subsystem {
 		left1.setVoltageRampRate(24);
 		left2.setVoltageRampRate(24);
 		
+		right1.enableBrakeMode(true);
+		right2.enableBrakeMode(true);
+		left1.enableBrakeMode(true);
+		left2.enableBrakeMode(true);
+		
 		
 	}
 	

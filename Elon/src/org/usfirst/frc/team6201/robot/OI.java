@@ -56,11 +56,10 @@ public class OI {
 	
 	/**
 	 * @return a double corresponding to the slider on the joystick roughly under the wrist of someone if they are holding it.
-	 * TODO: what is the range? what is it at one of the states?
 	 */
 	public double getSliderAxisOfArcade() {
 		
-		return 0.5 * (1 + logitech.getRawAxis(RobotMap.LOGITECH_SLIDER_AXIS));
+		return 0.5 * (1 + (-1 * logitech.getRawAxis(RobotMap.LOGITECH_SLIDER_AXIS)));
 		
 	}
 
@@ -78,7 +77,7 @@ public class OI {
 		Button b3 = new JoystickButton(logitech, 3);
 		b3.whileHeld(new FallRope());
 		
-		Button b4 = new JoystickButton(logitech, 3);
+		Button b4 = new JoystickButton(logitech, 4);
 		b4.whenPressed(new DriveTimeCmd(3));
 		
 		
