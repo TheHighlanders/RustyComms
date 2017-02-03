@@ -42,11 +42,14 @@ public class Robot extends IterativeRobot {
 	 */
 	public static GearVisionAuto gva = new GearVisionAuto();
 	
-	
+	/**
+	 * Creates a RopeClimber subsystem object which enables rope-climbing capabilities.
+	 */
 	public static RopeClimber rc = new RopeClimber();
+	
 	/**
 	 * Declare the Operator Interface object.
-	 * DO NOT initialize it here that would cause No Robot Code to occur.
+	 * DO NOT initialize it here; that would cause No Robot Code to occur.
 	 */
 	public static OI oi;
 	

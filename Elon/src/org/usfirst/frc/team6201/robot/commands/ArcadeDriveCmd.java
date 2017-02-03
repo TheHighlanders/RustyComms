@@ -98,7 +98,8 @@ public class ArcadeDriveCmd extends Command {
     	// get joystick positions
     	double joystickX = Robot.oi.getXAxisOfArcade();
     	double joystickY = Robot.oi.getYAxisOfArcade();
-    	double joystickSlider = Robot.oi.getSliderAxisOfArcade();
+    	double joystickSlider = 0.5 * (1 + (-1 * Robot.oi.getSliderAxisOfArcade()));
+    	
     	
     	// use mapping function and the joystick slider as a gain 
     	// to get a desired turn amount and a desired forward motion speed

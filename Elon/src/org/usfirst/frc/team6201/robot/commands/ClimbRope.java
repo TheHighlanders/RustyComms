@@ -5,7 +5,7 @@ import org.usfirst.frc.team6201.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Continuously started when the button is being held down
  */
 public class ClimbRope extends Command {
 

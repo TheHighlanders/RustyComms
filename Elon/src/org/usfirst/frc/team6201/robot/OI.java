@@ -23,6 +23,7 @@ public class OI {
 	/**
 	 * Create an object out of our logitech arcade joystick.
 	 * This allows us to get the  current position of the joystick, and the state of all the buttons.
+	 * Initialized with the USB devices plugged into the robot
 	 */
 	private Joystick logitech = new Joystick(RobotMap.LOGITECH);
 	
@@ -56,27 +57,34 @@ public class OI {
 	
 	/**
 	 * @return a double corresponding to the slider on the joystick roughly under the wrist of someone if they are holding it.
+	 * range of -1 or 1, where -1 is pointing the slider up and 1 is pointing it down
 	 */
 	public double getSliderAxisOfArcade() {
 		
-		return 0.5 * (1 + (-1 * logitech.getRawAxis(RobotMap.LOGITECH_SLIDER_AXIS)));
+		return logitech.getRawAxis(RobotMap.LOGITECH_SLIDER_AXIS);
 		
 	}
 
 	public OI() {
 		
+		//SUPPOSED to turn the robot 90 degrees when the 12 button is pressed
 		Button button12 = new JoystickButton(logitech, 12);
 		button12.whenPressed(new TurnAngleCmd(90, 5));
 		
+		//starts the process of climbing the rope
 		Button b1 = new JoystickButton(logitech, 1);
 		b1.whileHeld(new ClimbRope());
 		
+		//stops the rope climber
+		//might want to be whenPressed instead
 		Button b2 = new JoystickButton(logitech, 2);
 		b2.whileHeld(new StopClimbing());
 		
+		//starts the process of unwinding the rope
 		Button b3 = new JoystickButton(logitech, 3);
 		b3.whileHeld(new FallRope());
 		
+		//Drives for, in this case, 3 seconds
 		Button b4 = new JoystickButton(logitech, 4);
 		b4.whenPressed(new DriveTimeCmd(3));
 		
