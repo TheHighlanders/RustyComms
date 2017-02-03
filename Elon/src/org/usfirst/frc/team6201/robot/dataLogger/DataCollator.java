@@ -13,8 +13,8 @@ package org.usfirst.frc.team6201.robot.dataLogger;
  */
 public class DataCollator {
 	
-	public static DataField<Double> totalCurrent = new DataField<>("totalCurrent");
-	public static DataField<Double> gyro = new DataField<>("gyro");
+	public static DataField<Double> gyroAngle = new DataField<>("gyroAngle");
+	public static DataField<Double> gyroRate = new DataField<>("gyroRate");
 	public static DataField<Double> motorSpeedLeft =  new DataField<>("motorSpeedLeft");
 	public static DataField<Double> motorSpeedRight =  new DataField<>("motorSpeedRight");
 	public static DataField<Double> motorRoller =  new DataField<>("motorRoller");
@@ -29,7 +29,7 @@ public class DataCollator {
 	public static DataField<Double> current14 =  new DataField<>("current14");
 	public static DataField<Double> current15 =  new DataField<>("current15");
 	public static DataField<String> state = new DataField<>("state");
-	private static DataField[] dataFieldArray  = {state, gyro, motorSpeedLeft, motorSpeedRight, motorRoller, batteryVoltage, pdpTemp, accelX, accelY, accelZ, current1, current2, current3, current14, current15, totalCurrent};
+	private static DataField[] dataFieldArray  = {state, gyroAngle, gyroRate, motorSpeedLeft, motorSpeedRight, motorRoller, batteryVoltage, pdpTemp, accelX, accelY, accelZ, current1, current2, current3, current14, current15};
 
 	/**
 	 * 

@@ -42,7 +42,7 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
         		Robot.dt.driveLR(0.2, 0.2);
         	}
         	//TODO: use an ultrasonic sensor maybe? not nessicarly needed
-        	if (target[3] > 0.3){
+        	if (target[3] > 0.5){
         		closeToPeg = true;
         	}
     	}

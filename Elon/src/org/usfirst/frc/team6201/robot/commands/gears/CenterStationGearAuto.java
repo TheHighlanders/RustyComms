@@ -8,9 +8,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class CenterStationGearAuto extends CommandGroup {
 
     public CenterStationGearAuto() {
-        addSequential(new HuntForTargetCmd());
         addSequential(new AutoPosRobotGearDeliveryCmd());
-      //  addSequential(new DeliverGearCmd());
+        //addSequential(new DeliverGearCmd());
         
         
         

@@ -4,6 +4,7 @@ package org.usfirst.frc.team6201.robot.subsystems;
 
 import java.io.IOException;
 
+import org.usfirst.frc.team6201.robot.Robot;
 import org.usfirst.frc.team6201.robot.dataLogger.*;
 import edu.wpi.first.wpilibj.ADXL362;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -20,12 +21,10 @@ import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 public class DataLoggerFetcher extends Subsystem {
 	private boolean stopOnNextDisable = false;
 	private PowerDistributionPanel powerPanel;
-	private	ADXRS450_Gyro gyro;
 	private ADXL362 accel;
 	private DataLoggerPublisherThread loggerPublisherThread;
 	public DataLoggerFetcher() {
 		powerPanel = new PowerDistributionPanel(0);
-		gyro = new ADXRS450_Gyro();
 		accel = new ADXL362(Accelerometer.Range.k16G);
 		
 		try {
@@ -69,9 +68,6 @@ public class DataLoggerFetcher extends Subsystem {
 	// the following update the DataFields of the DataCollator.
 	
 	
-	public void setTotalCurrent() {
-		DataCollator.totalCurrent.setVal(powerPanel.getTotalCurrent());		
-	}
 	public void setCurrent1() {
 		DataCollator.current1.setVal(powerPanel.getCurrent(1));
 	}
@@ -94,7 +90,10 @@ public class DataLoggerFetcher extends Subsystem {
 		DataCollator.pdpTemp.setVal(powerPanel.getTemperature());
 	}
 	public void setRate() {
-		DataCollator.gyro.setVal(gyro.getRate());
+		DataCollator.gyroRate.setVal(Robot.dt.getGyroRate());
+	}
+	public void setGyro() {
+		DataCollator.gyroAngle.setVal(Robot.dt.getGyroAngle());
 	}
 	public void setAccelX() {
 		DataCollator.accelX.setVal(accel.getX());

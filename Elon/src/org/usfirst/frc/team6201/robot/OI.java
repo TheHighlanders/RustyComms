@@ -5,6 +5,7 @@ import org.usfirst.frc.team6201.robot.commands.DriveTimeCmd;
 import org.usfirst.frc.team6201.robot.commands.FallRope;
 import org.usfirst.frc.team6201.robot.commands.StopClimbing;
 import org.usfirst.frc.team6201.robot.commands.TurnAngleCmd;
+import org.usfirst.frc.team6201.robot.commands.gears.AutoPosRobotGearDeliveryCmd;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -59,14 +60,14 @@ public class OI {
 	 */
 	public double getSliderAxisOfArcade() {
 		
-		return 0.5 * (1 + (-1 * logitech.getRawAxis(RobotMap.LOGITECH_SLIDER_AXIS)));
+		return -0.5 * (1 + (-1 * logitech.getRawAxis(RobotMap.LOGITECH_SLIDER_AXIS)));
 		
 	}
 
 	public OI() {
 		
-		Button button12 = new JoystickButton(logitech, 12);
-		button12.whenPressed(new TurnAngleCmd(90, 5));
+		Button b12 = new JoystickButton(logitech, 12);
+		b12.whenPressed(new TurnAngleCmd(90, 5));
 		
 		Button b1 = new JoystickButton(logitech, 1);
 		b1.whileHeld(new ClimbRope());
@@ -79,6 +80,9 @@ public class OI {
 		
 		Button b4 = new JoystickButton(logitech, 4);
 		b4.whenPressed(new DriveTimeCmd(3));
+		
+		Button b5 = new JoystickButton(logitech, 5);
+		b5.whenPressed(new AutoPosRobotGearDeliveryCmd());
 		
 		
 	}

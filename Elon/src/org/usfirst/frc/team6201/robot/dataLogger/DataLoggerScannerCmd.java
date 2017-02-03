@@ -37,7 +37,6 @@ public class DataLoggerScannerCmd extends Command {
     	Robot.dlf.setRate();
     	Robot.dlf.setTemp();
     	Robot.dlf.setTemp();
-    	Robot.dlf.setTotalCurrent();
     	Robot.dlf.setVoltage();
        }
 

@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.command.Command;
  * 
  *
  * @author Baxter Ellard
- * @author Adriana Massie 
+ * @author Adriana Massie
+ * @author David Matthews 
  *
  */
 
@@ -38,7 +39,7 @@ public class TurnAngleCmd extends Command {
 	/**
 	 * MAXSPEEDTHRESH is the angleOffSet where you rotate full speed  
 	 */
-	private final double MAXSPEEDTHRESH = 42;
+	private final double MAXSPEEDTHRESH = 84;
 	
 	private boolean needReInit = true;
 	
@@ -79,16 +80,16 @@ public class TurnAngleCmd extends Command {
 		DriverStation.reportWarning("Gyro Angle is, in execute, right now: " + Robot.dt.getGyroAngle(), false);
 		
 		if (currentAngleOffset >= MAXSPEEDTHRESH){
-			Robot.dt.driveLR(1,-1);
+			Robot.dt.driveLR(-1,1);
 		}
 		
 		else if (currentAngleOffset <= -MAXSPEEDTHRESH){
-			Robot.dt.driveLR(-1,1);
+			Robot.dt.driveLR(1,-1);
 		}
 	
 		else { 
 			turnSpeed = 1.0 / MAXSPEEDTHRESH * currentAngleOffset;
-			Robot.dt.driveLR(turnSpeed,-turnSpeed);
+			Robot.dt.driveLR(-turnSpeed,turnSpeed);
 				
 		}
 		
