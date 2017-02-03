@@ -7,6 +7,7 @@ import java.net.SocketException;
 
 import org.usfirst.frc.team6201.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -40,7 +41,8 @@ public class GearVisionReceiverThread extends Thread {
 		s = s.substring(s.indexOf(',') + 1);
 		double targetW = Double.parseDouble(s.substring(0, s.indexOf(',')));
 		s = s.substring(s.indexOf(',') + 1);
-		double targetH = Double.parseDouble(s.substring(0, s.indexOf(',')));
+		double targetH = Double.parseDouble(s);
+
 		
 		GearVisionCollator.setTarget(targetX, targetY, targetW, targetH);
 	}
@@ -50,11 +52,11 @@ public class GearVisionReceiverThread extends Thread {
 			DatagramPacket dataPacket = new DatagramPacket(buffer, buffer.length);
 			inputSocket.setSoTimeout(300);
 			inputSocket.receive(dataPacket);
-			return new String(dataPacket.getData(), 0, dataPacket.getLength());
+			String returnMe = new String(dataPacket.getData(), 0, dataPacket.getLength());
+			return returnMe;
 		}
 		catch (IOException e){
 			//TODO: Log messages!
-			System.out.println("Target location unknown");
 			GearVisionCollator.setTargetLocationUnknown();
 			return null;
 		}
@@ -68,10 +70,11 @@ public class GearVisionReceiverThread extends Thread {
 		try {
 			
 			inputSocket = new DatagramSocket(RobotMap.VISION_UDP_PORT);
+			DriverStation.reportWarning("Opened input Socket!", false);
 		}
 		catch (SocketException e){
 			//TODO: Log Messages -- Implement m
-			System.out.println("Failed to open DatagramSocket for Jetson Target Analysis");
+			DriverStation.reportWarning("Failed to open DatagramSocket for Jetson Target Analysis", false);
 		}
 		buffer = new byte[256];
 	}

@@ -32,10 +32,10 @@ public class RobotMap {
 	public static final int CLIMBER2 = 1;
 	
 	// Data Logging
-	public static final int LOGGING_UDP_PORT = 4445;
+	public static final int LOGGING_UDP_PORT = 5800;
 		
 	// Target identification
-	public static final int VISION_UDP_PORT = 5005;
+	public static final int VISION_UDP_PORT = 5801;
 		
 		
 }

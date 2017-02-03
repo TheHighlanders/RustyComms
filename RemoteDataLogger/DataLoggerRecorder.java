@@ -102,7 +102,7 @@ public class DataLoggerRecorder {
 
   private static void init(){
     try {
-      inputSocket = new DatagramSocket(4445);
+      inputSocket = new DatagramSocket(5800);
     }
     catch (SocketException e) {
       System.out.println("DatagramSocket Failed to open");
