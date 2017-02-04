@@ -11,7 +11,7 @@ package org.usfirst.frc.team6201.robot;
  * 
  */
 public class RobotMap {
-	
+
 	// Joystick
 	public static final int LOGITECH = 1;
 	public static final int LOGITECH_X_AXIS = 0;
@@ -24,18 +24,17 @@ public class RobotMap {
 	public static final int LEFT_DRIVE2 = 2;
 	public static final int RIGHT_DRIVE1 = 3;
 	public static final int RIGHT_DRIVE2 = 4;
-	
+
 	// Winch Climber
-	//TODO: Update the PWM ports that the Victors are plugged into.
-	
+	// TODO: Update the PWM ports that the Victors are plugged into.
+
 	public static final int CLIMBER1 = 0;
 	public static final int CLIMBER2 = 1;
-	
+
 	// Data Logging
 	public static final int LOGGING_UDP_PORT = 5800;
-		
+
 	// Target identification
 	public static final int VISION_UDP_PORT = 5801;
-		
-		
+
 }

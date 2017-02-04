@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
+ * Thread to receive and parse the UDP broadcasts from the Jetson of current locations of the target.
  * 
  *
  * @author David Matthews
@@ -23,6 +24,9 @@ public class GearVisionReceiverThread extends Thread {
 	private byte[] buffer;
 	
 	
+	/**
+	 * Constantly updates the last known location of the target as found by the jetson.
+	 */
 	public void run() {
 		init();
 		while (true){
@@ -31,6 +35,11 @@ public class GearVisionReceiverThread extends Thread {
 		
 	}
 	
+	/**
+	 * Parses a String to extract the postion and size of the target that the jeton found
+	 * 
+	 * @param s A String storing the position and size of the target.  
+	 */
 	private void processData(String s) {
 		if (s == null){
 			return;
@@ -47,6 +56,12 @@ public class GearVisionReceiverThread extends Thread {
 		GearVisionCollator.setTarget(targetX, targetY, targetW, targetH);
 	}
 
+	/**
+	 * Waits up to 300ms for the Jetson to send data about the current location of the target.
+	 * 
+	 * 
+	 * @return A String storing the data that the Jetson broadcast about the target location. If no message is received, returns null.
+	 */
 	private String recieveData() {
 		try {
 			DatagramPacket dataPacket = new DatagramPacket(buffer, buffer.length);
@@ -64,7 +79,7 @@ public class GearVisionReceiverThread extends Thread {
 	}
 
 	/**
-	 * TODO: update the port number to be a valid FRC port.
+	 * attempts to set up a DatagramSocket through which we can recieve data from the jetson
 	 */
 	private void init () {
 		try {

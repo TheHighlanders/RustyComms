@@ -22,7 +22,7 @@ public class HuntForTargetCmd extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (!targetFound){
-    		Robot.dt.driveLR(0.2, -0.2);
+    		Robot.dt.driveLR(0.1, -0.1);
     	}
     }
 

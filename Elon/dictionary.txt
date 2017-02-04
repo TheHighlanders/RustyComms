@@ -24,3 +24,7 @@ pos
 neg
 winch
 unspools
+touchpad
+jetson
+feb
+jan

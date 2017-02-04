@@ -5,27 +5,23 @@ import org.usfirst.frc.team6201.robot.commands.DriveTimeCmd;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * The routine to autonomously deliver the gear to the peg during auto if our robot is going for the center lift.
- * 
- * 
- * @author Adriana Massie
- * @author David Matthews
+ *
  */
-public class CenterStationGearAuto extends CommandGroup {
+public class OuterStationGearAuto extends CommandGroup {
 
-	/**
-	 * The routine of commands to run if our robot is going to deliver the gear to the center lift during auto.
-	 */
-    public CenterStationGearAuto() {
-    	//TODO: experimentally determine what the correct value of time for here.
-    	addSequential(new DriveTimeCmd(0.3));
+    public OuterStationGearAuto() {
     	
-        addSequential(new AutoPosRobotGearDeliveryCmd());
-        addSequential(new DeliverGearCmd());
-        //addSequential(new DeliverGearCmd());
-        
-        
-        
+    	addSequential(new DriveTimeCmd(1));
+    	addSequential(new HuntForTargetCmd());
+    	addSequential(new AutoPosRobotGearDeliveryCmd());
+    	addSequential(new DeliverGearCmd());
+    	
+    	
+        // Add Commands here:
+        // e.g. addSequential(new Command1());
+        //      addSequential(new Command2());
+        // these will run in order.
+
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());

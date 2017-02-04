@@ -74,7 +74,7 @@ public class DriveTimeCmd extends Command {
 			
 		} else {
 			
-			Robot.dt.driveLR(0.5, 0.5);
+			Robot.dt.driveLR(0.3, 0.3);
 			
 		}
 		

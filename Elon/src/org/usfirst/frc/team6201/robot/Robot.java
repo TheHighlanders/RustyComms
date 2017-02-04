@@ -1,6 +1,9 @@
 
 package org.usfirst.frc.team6201.robot;
 
+import org.usfirst.frc.team6201.robot.commands.DoNothingAuto;
+import org.usfirst.frc.team6201.robot.commands.gears.CenterStationGearAuto;
+import org.usfirst.frc.team6201.robot.commands.gears.OuterStationGearAuto;
 import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
 import org.usfirst.frc.team6201.robot.subsystems.DataLoggerFetcher;
 import org.usfirst.frc.team6201.robot.subsystems.DriveTrain;
@@ -15,71 +18,74 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
 /**
- * This class is automatically run when the robot first boots up.
- * Each of the methods are called at their appropriate parts of the game.
+ * This class is automatically run when the robot first boots up. Each of the
+ * methods are called at their appropriate parts of the game.
  * 
  * @author David Matthews
  * 
  */
 public class Robot extends IterativeRobot {
 
-	
 	/**
-	 * Creates a DriveTrain subsystem object which enables moving the robot around.
+	 * Creates a DriveTrain subsystem object which enables moving the robot
+	 * around.
 	 */
 	public static final DriveTrain dt = new DriveTrain();
 
 	/**
-	 * Creates a DataLoggerFetcher subsystem object which starts the logging publisher thread for the Data Logger.
+	 * Creates a DataLoggerFetcher subsystem object which starts the logging
+	 * publisher thread for the Data Logger.
 	 */
 	public static DataLoggerFetcher dlf = new DataLoggerFetcher();
-	
+
 	/**
-	 * Creates a GearVisionAuto subsystem which prepares for receiving of target information,
-	 * and informs the DS when the robot is able to complete the gear delivery routine. 
+	 * Creates a GearVisionAuto subsystem which prepares for receiving of target
+	 * information, and informs the DS when the robot is able to complete the
+	 * gear delivery routine.
 	 */
 	public static GearVisionAuto gva = new GearVisionAuto();
-	
+
 	/**
-	 * Creates a RopeClimber subsystem object which enables rope-climbing capabilities.
+	 * Creates a RopeClimber subsystem object which enables rope-climbing
+	 * capabilities.
 	 */
 	public static RopeClimber rc = new RopeClimber();
-	
+
 	/**
-	 * Declare the Operator Interface object.
-	 * DO NOT initialize it here; that would cause No Robot Code to occur.
+	 * Declare the Operator Interface object. DO NOT initialize it here; that
+	 * would cause No Robot Code to occur.
 	 */
 	public static OI oi;
-	
-	// provides a place to store which command we want to use in the auto section of the match.
+
+	// provides a place to store which command we want to use in the auto
+	// section of the match.
 	// See robotInit() for how this is set.
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
-	 * used for any initialization code.
-	 * TODO: look up how calibration works if we have multiple gyro objects. Maybe chief delphi
+	 * used for any initialization code. TODO: look up how calibration works if
+	 * we have multiple gyro objects. Maybe chief delphi
 	 */
 	@Override
 	public void robotInit() {
 		oi = new OI();
 		dt.calibrateGyro();
-		
+
 		DataCollator.state.setVal("RobotInit");
-		
-		//chooser.addDefault("Default Auto", new ExampleCommand());
+
+		// chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		//TODO: implement this for our different auto routines.
+		// TODO: implement this for our different auto routines.
 		SmartDashboard.putData("Auto mode", chooser);
 	}
 
 	/**
-	 * This method is called once each time the robot enters Disabled mode.
-	 * You can use it to reset any subsystem information you want to clear when
-	 * the robot is disabled.
+	 * This method is called once each time the robot enters Disabled mode. You
+	 * can use it to reset any subsystem information you want to clear when the
+	 * robot is disabled.
 	 */
 	@Override
 	public void disabledInit() {
@@ -94,33 +100,45 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		DataCollator.state.setVal("RobotDisabledPeriodic");
 		Scheduler.getInstance().run();
-		if (dlf.getStopOnNextDisable()){
+		if (dlf.getStopOnNextDisable()) {
 			dlf.stopLoggingRecorder();
 		}
 	}
 
 	/**
-	 * This method is called when the robot is entering autonomous. Put any setup for autonomous here.
-	 * Currently, we grab the selected autonomous command from the smart dashboard(a screen on the driverstation), and schedule it to run here.
+	 * This method is called when the robot is entering autonomous. Put any
+	 * setup for autonomous here. Currently, we grab the selected autonomous
+	 * command from the smart dashboard(a screen on the driverstation), and
+	 * schedule it to run here.
 	 */
 	@Override
 	public void autonomousInit() {
 		DataCollator.state.setVal("RobotAutonomousInit");
 		autonomousCommand = chooser.getSelected();
-		if (DriverStation.getInstance().isFMSAttached()){
+		if (DriverStation.getInstance().isFMSAttached()) {
 			dlf.triggerStopOnNextDisable();
 		}
 
-		
-//		  String autoSelected = SmartDashboard.getString("Auto Selector", "Default"); switch(autoSelected) {
-//		  	case "My Auto": autonomousCommand = new MyAutoCommand(); break;
-//		  	case "Default Auto": default: autonomousCommand = new ExampleCommand(); break;
-//		  	}
-		 
+		String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+		switch (autoSelected) {
+
+		case "Center Station Gear Auto":
+			autonomousCommand = new CenterStationGearAuto();
+			break;
+		case "Outer Station Gear Auto":
+			autonomousCommand = new OuterStationGearAuto();
+			break;
+		case "Do Nothing":
+		default:
+			autonomousCommand = new DoNothingAuto();
+			break;
+
+		}
 
 		// schedule the autonomous command (example)
-		if (autonomousCommand != null)
+		if (autonomousCommand != null) {
 			autonomousCommand.start();
+		}
 	}
 
 	/**
@@ -133,7 +151,8 @@ public class Robot extends IterativeRobot {
 	}
 
 	/**
-	 * This method is called just before the tele-operated period of the begins. Add any setup here.
+	 * This method is called just before the tele-operated period of the begins.
+	 * Add any setup here.
 	 * 
 	 */
 	@Override
@@ -143,7 +162,7 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		
+
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 	}

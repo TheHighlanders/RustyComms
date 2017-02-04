@@ -9,30 +9,34 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ClimbRope extends Command {
 
-    public ClimbRope() {
-        requires(Robot.rc);
-    }
+	public ClimbRope() {
+		requires(Robot.rc);
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    }
+	/**
+	 * Sets the climber to spool the rope in order to climb the rope.
+	 */
+	protected void execute() {
+		Robot.rc.climb();
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	Robot.rc.climb();
-    }
+	/**
+	 * this command is constantly re-started whenever the button is held.
+	 */
+	protected boolean isFinished() {
+		return true;
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return true;
-    }
+	/**
+	 * Stops climbing to avoid any mishaps.
+	 */
+	protected void end() {
+		Robot.rc.stop();
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+		end();
+	}
 }

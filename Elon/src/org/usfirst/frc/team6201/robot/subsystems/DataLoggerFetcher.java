@@ -8,6 +8,7 @@ import org.usfirst.frc.team6201.robot.Robot;
 import org.usfirst.frc.team6201.robot.dataLogger.*;
 import edu.wpi.first.wpilibj.ADXL362;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
@@ -19,10 +20,29 @@ import edu.wpi.first.wpilibj.interfaces.Accelerometer;
  *@author David Matthews
  */
 public class DataLoggerFetcher extends Subsystem {
+	
+	/**
+	 * A flag to store if we should end logging and shutdown the jetson when we next enter disabled.
+	 * Used when we are attached to the FMS.
+	 */
 	private boolean stopOnNextDisable = false;
+	
+	/**
+	 * To get access to current and voltage for logging.
+	 */
 	private PowerDistributionPanel powerPanel;
+	
+	/**
+	 * to get access to the accelerometer for logging.
+	 */
 	private ADXL362 accel;
+	
+	/**
+	 * Periodically broadcasts current data over UDP.
+	 */
 	private DataLoggerPublisherThread loggerPublisherThread;
+	
+	
 	public DataLoggerFetcher() {
 		powerPanel = new PowerDistributionPanel(0);
 		accel = new ADXL362(Accelerometer.Range.k16G);
@@ -34,7 +54,7 @@ public class DataLoggerFetcher extends Subsystem {
 		catch (IOException e) {
 			//TODO: Look up how to send this message to the Driverstation, should be one line.
 			//TODO: ensure that if this exception is thrown, that we don't crash the robot via a Null pointer exception.
-			System.out.println("DataLoggerPublisherThread().start(); crashed" + e.getStackTrace());
+			DriverStation.reportError("DataLoggerPublisherThread().start(); crashed" + e.getStackTrace(), false);
 		}
 		
 
@@ -57,6 +77,9 @@ public class DataLoggerFetcher extends Subsystem {
         setDefaultCommand(new DataLoggerScannerCmd());
     }
 
+	/**
+	 * setter method for stopOnNextDisable
+	 */
 	public void triggerStopOnNextDisable(){
 		stopOnNextDisable = true;
 	}
