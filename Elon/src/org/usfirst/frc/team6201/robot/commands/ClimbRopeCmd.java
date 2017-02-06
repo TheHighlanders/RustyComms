@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * Continuously started when the button is being held down
  */
-public class ClimbRope extends Command {
+public class ClimbRopeCmd extends Command {
 
-	public ClimbRope() {
+	public ClimbRopeCmd() {
 		requires(Robot.rc);
 	}
 

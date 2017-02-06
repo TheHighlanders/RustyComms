@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class FallRope extends Command {
+public class StopClimbingCmd extends Command {
 
-    public FallRope() {
-        requires(Robot.rc);
+    public StopClimbingCmd() {
+      requires(Robot.rc);
     }
 
     // Called just before this Command runs the first time
@@ -19,7 +19,7 @@ public class FallRope extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.rc.fall();
+    	Robot.rc.stop();
     }
 
     // Make this return true when this Command no longer needs to run execute()

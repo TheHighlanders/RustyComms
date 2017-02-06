@@ -1,9 +1,9 @@
 package org.usfirst.frc.team6201.robot;
 
-import org.usfirst.frc.team6201.robot.commands.ClimbRope;
+import org.usfirst.frc.team6201.robot.commands.ClimbRopeCmd;
 import org.usfirst.frc.team6201.robot.commands.DriveTimeCmd;
-import org.usfirst.frc.team6201.robot.commands.FallRope;
-import org.usfirst.frc.team6201.robot.commands.StopClimbing;
+import org.usfirst.frc.team6201.robot.commands.DescendRopeCmd;
+import org.usfirst.frc.team6201.robot.commands.StopClimbingCmd;
 import org.usfirst.frc.team6201.robot.commands.TurnAngleCmd;
 import org.usfirst.frc.team6201.robot.commands.gears.AutoPosRobotGearDeliveryCmd;
 
@@ -75,16 +75,16 @@ public class OI {
 		
 		//starts the process of climbing the rope
 		Button b1 = new JoystickButton(logitech, 1);
-		b1.whileHeld(new ClimbRope());
+		b1.whileHeld(new ClimbRopeCmd());
 		
 		//stops the rope climber
 		//might want to be whenPressed instead
 		Button b2 = new JoystickButton(logitech, 2);
-		b2.whileHeld(new StopClimbing());
+		b2.whileHeld(new StopClimbingCmd());
 		
 		//starts the process of unwinding the rope
 		Button b3 = new JoystickButton(logitech, 3);
-		b3.whileHeld(new FallRope());
+		b3.whileHeld(new DescendRopeCmd());
 		
 		//Drives for, in this case, 3 seconds
 		Button b4 = new JoystickButton(logitech, 4);
