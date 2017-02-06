@@ -7,7 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * Drives the robot towards the peg for the remainder of the gear delivery command.
- * TODO: How fast can we drive before motion blur / camera lag becomes an issue? test this!
+ * TODO: what does our robot's cameras see when it is at the peg?
+ * TODO: how fast can we drive?
+ * TODO: what does our robot see when it is near the peg?
  * 
  * @author David Matthews
  * @auothor Adriana Massie
