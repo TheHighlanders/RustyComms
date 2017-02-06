@@ -5,6 +5,11 @@ import org.usfirst.frc.team6201.robot.commands.DriveTimeCmd;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
+ * 
+ * TODO: FINISH
+ * 
+ * @author David Matthews
+ * @author Adrianna Massie
  *
  */
 public class OuterStationGearAuto extends CommandGroup {
