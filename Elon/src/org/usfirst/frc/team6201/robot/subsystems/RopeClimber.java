@@ -25,7 +25,6 @@ public class RopeClimber extends Subsystem {
 	 */
 	public void climb() {
 		m1.set(1);
-		m2.set(1);
 	}
 
 	/**

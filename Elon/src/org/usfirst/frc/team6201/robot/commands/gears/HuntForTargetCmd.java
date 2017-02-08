@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6201.robot.commands.gears;
 
 import org.usfirst.frc.team6201.robot.Robot;
+import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
 import org.usfirst.frc.team6201.robot.gearVision.GearVisionCollator;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -21,6 +22,7 @@ public class HuntForTargetCmd extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+		DataCollator.state.setVal("HuntForTargetCmdExe");
     	if (!targetFound){
     		Robot.dt.driveLR(0.1, -0.1);
     	}

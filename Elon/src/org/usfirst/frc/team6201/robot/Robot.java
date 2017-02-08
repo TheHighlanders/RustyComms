@@ -100,7 +100,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		DataCollator.state.setVal("RobotDisabledPeriodic");
 		Scheduler.getInstance().run();
-		if (dlf.getStopOnNextDisable()) {
+		if (dlf.getStopOnNextDisable() || true) {
 			dlf.stopLoggingRecorder();
 		}
 	}

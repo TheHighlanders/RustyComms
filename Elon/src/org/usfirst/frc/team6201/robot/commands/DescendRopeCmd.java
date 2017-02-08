@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6201.robot.commands;
 
 import org.usfirst.frc.team6201.robot.Robot;
+import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -19,6 +20,7 @@ public class DescendRopeCmd extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+		DataCollator.state.setVal("FallRopeCmdExe");
     	Robot.rc.fall();
     }
 

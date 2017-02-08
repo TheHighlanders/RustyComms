@@ -19,7 +19,7 @@ public class OuterStationGearAuto extends CommandGroup {
     	addSequential(new DriveTimeCmd(1));
     	addSequential(new HuntForTargetCmd());
     	addSequential(new AutoPosRobotGearDeliveryCmd());
-    	addSequential(new DeliverGearCmd());
+    //	addSequential(new DeliverGearCmd());
     	
     	
         // Add Commands here:

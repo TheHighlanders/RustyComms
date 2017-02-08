@@ -5,6 +5,7 @@ import org.usfirst.frc.team6201.robot.RobotMap;
 import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
 import org.usfirst.frc.team6201.robot.subsystems.DriveTrain;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -109,6 +110,7 @@ public class ArcadeDriveCmd extends Command {
 		double joystickX = Robot.oi.getXAxisOfArcade();
 		double joystickY = Robot.oi.getYAxisOfArcade();
 		double joystickSlider = 0.5 * (1 + (-1 * Robot.oi.getSliderAxisOfArcade()));
+		DriverStation.reportWarning(Double.toString(joystickSlider), true);
 
 		// use mapping function and the joystick slider as a gain
 		// to get a desired turn amount and a desired forward motion speed
@@ -128,9 +130,9 @@ public class ArcadeDriveCmd extends Command {
 		// the Robot.dt.driveLR() parameters if needed
 		// TODO: move RobotMap.fowardOrReverse to DriveTrain.java
 		if (DriveTrain.fowardOrReverse == 1) {
-			Robot.dt.driveLR((processedPower + processedTurn), (processedPower - processedTurn));
+			Robot.dt.driveLR((processedPower - processedTurn), (processedPower + processedTurn));
 		} else {
-			Robot.dt.driveLR(-1 * (processedPower - processedTurn), -1 * (processedPower + processedTurn));
+			Robot.dt.driveLR(-1 * (processedPower + processedTurn), -1 * (processedPower - processedTurn));
 		}
 	}
 

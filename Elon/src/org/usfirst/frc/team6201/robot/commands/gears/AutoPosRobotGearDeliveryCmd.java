@@ -1,8 +1,10 @@
 package org.usfirst.frc.team6201.robot.commands.gears;
 
 import org.usfirst.frc.team6201.robot.Robot;
+import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
 import org.usfirst.frc.team6201.robot.gearVision.GearVisionCollator;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -55,20 +57,21 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
      * else we hunt for the target by turning in a circle
      */
     protected void execute() {
-    	
+ 
+		DataCollator.state.setVal("AutoPosRobotGearDeliveryCmdExe");
 
     	target = GearVisionCollator.getTarget();
     	
     	// case: lost tracking of target
     	if (target == null) {
-    		
+    		DriverStation.reportWarning("no Target", false);
     		// if we loose tracking of the peg, but the robot is close, drive forward.
     		if(closeToPeg){
         		//TODO: stop when hit peg.
-        		Robot.dt.driveLR(0.1, 0.1);
+        		Robot.dt.driveLR(-0.2, -0.2);
         	}
     		else {
-    			Robot.dt.driveLR(0.1, -0.1);
+    			Robot.dt.driveLR(0.15, -0.15);
     		}
     		
     		
@@ -76,19 +79,25 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
     	// case: have tracking of target.
     	else {
     		// center the target in the frame.
-        	if (target[3] > 0.5){
+        	if (target[3] > 0.2){
         		closeToPeg = true;
         	}
         	
-        	if (target[0] < 0.45){
-        		Robot.dt.driveLR(0.1, -0.1);
+        	if (target[0] < 0.35){
+        		Robot.dt.driveLR(-0.15, 0.15);
+        		DriverStation.reportWarning("turning: CW", false);
         	}
-        	else if (target[0] > 0.55){
-        		Robot.dt.driveLR(-0.1, 0.1);
+        	else if (target[0] > 0.65){
+        		Robot.dt.driveLR(0.15, -0.15);
+        		DriverStation.reportWarning("turning: CCW", false);
         	}
         	// drive towards target.
         	else {
-        		Robot.dt.driveLR(0.1, 0.1);
+        		double targetXError = (target[0] - 0.5) * 0.5*Robot.oi.getSliderAxisOfArcade();
+        		
+        		
+        		Robot.dt.driveLR(-0.2 - targetXError, -0.2 + targetXError);
+        		DriverStation.reportWarning("Forward March: ", false);
         	}
     	}
     	
@@ -100,7 +109,7 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
     // use an ultrasonic sensor to determine if this command no longer needs to run?
     // or maybe use accelormeter for hitting wall?
     protected boolean isFinished() {
-        return false;
+        return (target[3] > 0.34);
     }
 
     // Called once after isFinished returns true

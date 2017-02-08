@@ -1,5 +1,7 @@
 package org.usfirst.frc.team6201.robot.commands;
 
+import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -18,6 +20,7 @@ public class DoNothingAuto extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		DataCollator.state.setVal("DoNothingAutoCmd");
 	}
 
 	// Called repeatedly when this Command is scheduled to run

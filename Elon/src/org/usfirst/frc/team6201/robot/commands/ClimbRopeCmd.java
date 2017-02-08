@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6201.robot.commands;
 
 import org.usfirst.frc.team6201.robot.Robot;
+import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -17,6 +18,7 @@ public class ClimbRopeCmd extends Command {
 	 * Sets the climber to spool the rope in order to climb the rope.
 	 */
 	protected void execute() {
+		DataCollator.state.setVal("ClimbRopeCmdExe");
 		Robot.rc.climb();
 	}
 
@@ -31,7 +33,6 @@ public class ClimbRopeCmd extends Command {
 	 * Stops climbing to avoid any mishaps.
 	 */
 	protected void end() {
-		Robot.rc.stop();
 	}
 
 	// Called when another command which requires one or more of the same

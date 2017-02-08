@@ -22,7 +22,7 @@ public class CenterStationGearAuto extends CommandGroup {
     	addSequential(new DriveTimeCmd(0.3));
     	
         addSequential(new AutoPosRobotGearDeliveryCmd());
-        addSequential(new DeliverGearCmd());
+      //  addSequential(new DeliverGearCmd());
         //addSequential(new DeliverGearCmd());
         
         

@@ -29,7 +29,7 @@ public class DriveTrain extends Subsystem {
 	private CANTalon right1;
 	private CANTalon right2;
 
-	// whether this is public or not is TBD
+	//TODO make this an enum
 	public static int fowardOrReverse = 1;
 
 	// Sensors
