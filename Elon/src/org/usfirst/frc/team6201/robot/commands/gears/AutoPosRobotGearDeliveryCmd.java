@@ -10,11 +10,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * Drives the robot towards the peg for the remainder of the gear delivery command.
  * TODO: what does our robot's cameras see when it is at the peg?
- * TODO: how fast can we drive?
  * TODO: what does our robot see when it is near the peg?
  * 
  * @author David Matthews
- * @auothor Adriana Massie
+ * @author Adriana Massie
  */
 public class AutoPosRobotGearDeliveryCmd extends Command {
 	/**
@@ -41,6 +40,10 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 	 */
 	private double [] target;
 	
+	/** 
+	 * The last known target.
+	 */
+	private double [] lastKnownTarget;
 	
 	/**
 	 * Constructor for this command, requires use of the drive train.
@@ -66,45 +69,58 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
     	
     	// case: lost tracking of target
     	if (target == null) {
-    		DriverStation.reportWarning("no Target", false);
+    		
+    		DriverStation.reportWarning("No Target being tracked: going off of last known target.", false);
+    		
     		// if we loose tracking of the peg, but the robot is close, drive forward.
     		if(closeToPeg){
         		//TODO: stop when hit peg.
         		Robot.dt.driveLR(0.2, 0.2);
         	}
     		else {
-    			Robot.dt.driveLR(-0.15, 0.15);
+    			if (lastKnownTarget[0] > 0.5) {
+    				Robot.dt.driveLR(0.15,-0.15);
+    			}
+    			
+    			else {
+    				Robot.dt.driveLR(-0.15, 0.15);
+    			}
     		}
     		
     		
     	}
     	// case: have tracking of target.
     	else {
-    		// center the target in the frame.
-        	if (target[3] > 0.11){
+    		lastKnownTarget = target;
+    		
+    		// if we are close the peg, record it
+    		if (target[3] > 0.11){
         		closeToPeg = true;
         	}
+    		// if we are really close to the peg, stop! 
         	if (target [3] >= 0.18){
         		stopMe = true;
         		
         	}
         	
-        	// drive towards target.
+        	// drive towards target; centering the target in our frame.
         	else {
+        		// how close is the target to the center of the frame? 
         		double targetXError = (target[0] - 0.5);
         		
         		DriverStation.reportWarning("TargetXError: " + targetXError, false);
+        		//TODO: Make the robot speed depend on both the location of the target, and it's size.
+        		
         		if (targetXError < 0) {
             		targetXError = -0.33*(5*Math.pow(Math.abs(targetXError), 2) - 10*Math.pow(Math.abs(targetXError), 4) + 0.5* Math.pow(Math.abs(targetXError), 0.5)); 
         		}
+        		
         		else if (targetXError > 0) {
             		targetXError = 0.33*(5*Math.pow(Math.abs(targetXError), 2) - 10*Math.pow(Math.abs(targetXError), 4) + 0.5* Math.pow(Math.abs(targetXError), 0.5));
         		}
-        		//DriverStation.reportWarning("Current delta in motor forwards: " + targetXError, false);
         		
         		DriverStation.reportWarning("Driving: " + targetXError, false);
         		Robot.dt.driveLR(0.3 + targetXError , 0.3 - targetXError);
-        		//DriverStation.reportWarning("Forward March: ", false);
         	}
     	}
     	

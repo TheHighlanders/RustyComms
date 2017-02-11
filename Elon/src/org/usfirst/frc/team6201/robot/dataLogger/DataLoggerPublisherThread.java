@@ -11,7 +11,6 @@ package org.usfirst.frc.team6201.robot.dataLogger;
 
 import java.io.*;
 import java.net.*;
-import java.util.*;
 
 import org.usfirst.frc.team6201.robot.RobotMap;
 

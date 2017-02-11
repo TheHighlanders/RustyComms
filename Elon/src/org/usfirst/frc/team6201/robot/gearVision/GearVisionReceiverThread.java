@@ -8,7 +8,6 @@ import java.net.SocketException;
 import org.usfirst.frc.team6201.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Thread to receive and parse the UDP broadcasts from the Jetson of current locations of the target.
@@ -25,8 +24,7 @@ public class GearVisionReceiverThread extends Thread {
 	
 	
 	/**
-	 * Constantly updates the last known location of the target as found by the jetson.
-	 */
+	 * Constantly updates the last	
 	public void run() {
 		init();
 		while (true){
