@@ -106,7 +106,7 @@ public class DataLoggerPublisherThread extends Thread {
 	 * @return A String flagged as a header row for the CSV file.
 	 */
 	private String getHeader() {
-		return ("h," + Integer.toString(sequenceNumb) + "," + DataCollator.getHeader() + "\n");
+		return ("messageType,SequenceNumber," + DataCollator.getHeader() + "\n");
 	}
 
 	/**
