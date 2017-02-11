@@ -25,6 +25,7 @@ public class GearVisionReceiverThread extends Thread {
 	
 	/**
 	 * Constantly updates the last	
+	 */
 	public void run() {
 		init();
 		while (true){

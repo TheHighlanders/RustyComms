@@ -48,11 +48,6 @@ public class DriveTrain extends Subsystem {
 		left1.setInverted(true);
 		left2.setInverted(true);
 
-		right1.setSafetyEnabled(true);
-		right2.setSafetyEnabled(true);
-		left1.setSafetyEnabled(true);
-		left2.setSafetyEnabled(true);
-
 		right1.setVoltageRampRate(24);
 		right2.setVoltageRampRate(24);
 		left1.setVoltageRampRate(24);
