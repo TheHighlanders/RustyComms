@@ -80,8 +80,8 @@ public class DataLoggerFetcher extends Subsystem {
 	/**
 	 * setter method for stopOnNextDisable
 	 */
-	public void triggerStopOnNextDisable(){
-		stopOnNextDisable = true;
+	public void setStopOnNextDisable(boolean trigger){
+		stopOnNextDisable = trigger;
 	}
 	public boolean getStopOnNextDisable(){
 		return stopOnNextDisable;

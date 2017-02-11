@@ -30,7 +30,7 @@ public class DriveTrain extends Subsystem {
 	private CANTalon right2;
 
 	//TODO make this an enum
-	public static int fowardOrReverse = 1;
+	public static int fowardOrReverse = -1;
 
 	// Sensors
 	private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
@@ -87,13 +87,25 @@ public class DriveTrain extends Subsystem {
 	 */
 	public void driveLR(double leftPower, double rightPower) {
 
-		left1.set(leftPower);
-		left2.set(leftPower);
-		right1.set(rightPower);
-		right2.set(rightPower);
+		if (fowardOrReverse == 1) {
+			left1.set(leftPower);
+			left2.set(leftPower);
+			right1.set(rightPower);
+			right2.set(rightPower);	
+			DataCollator.motorSpeedLeft.setVal(leftPower);
+			DataCollator.motorSpeedRight.setVal(rightPower);
+		}
+		
+		else {
+			left1.set(-leftPower);
+			left2.set(-leftPower);
+			right1.set(-rightPower);
+			right2.set(-rightPower);
+			DataCollator.motorSpeedLeft.setVal(-leftPower);
+			DataCollator.motorSpeedRight.setVal(-rightPower);
+		}
 
-		DataCollator.motorSpeedLeft.setVal(leftPower);
-		DataCollator.motorSpeedRight.setVal(rightPower);
+		
 
 	}
 

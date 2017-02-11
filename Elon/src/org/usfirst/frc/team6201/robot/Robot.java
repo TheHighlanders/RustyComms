@@ -90,6 +90,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		DataCollator.state.setVal("RobotDisabledInit");
+		SmartDashboard.putNumber("Turning Tuning", Robot.gva.getTuning());
 	}
 
 	/**
@@ -98,9 +99,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledPeriodic() {
+
+		Robot.gva.setTuning(SmartDashboard.getNumber("Turning Tuning", 0));
 		DataCollator.state.setVal("RobotDisabledPeriodic");
 		Scheduler.getInstance().run();
-		if (dlf.getStopOnNextDisable() || true) {
+		if (dlf.getStopOnNextDisable()) {
+			dlf.setStopOnNextDisable(false);
 			dlf.stopLoggingRecorder();
 		}
 	}
@@ -115,22 +119,20 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		DataCollator.state.setVal("RobotAutonomousInit");
 		autonomousCommand = chooser.getSelected();
-		if (DriverStation.getInstance().isFMSAttached()) {
-			dlf.triggerStopOnNextDisable();
-		}
+		
 
 		String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch (autoSelected) {
 
-		case "Center Station Gear Auto":
-			autonomousCommand = new CenterStationGearAuto();
+		case "None":
+			autonomousCommand = new DoNothingAuto();
 			break;
 		case "Outer Station Gear Auto":
 			autonomousCommand = new OuterStationGearAuto();
 			break;
 		case "Do Nothing":
 		default:
-			autonomousCommand = new DoNothingAuto();
+			autonomousCommand = new CenterStationGearAuto();
 			break;
 
 		}
@@ -158,10 +160,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit() {
 		DataCollator.state.setVal("RobotTeleopInit");
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
+		if (DriverStation.getInstance().isFMSAttached()) {
+			dlf.setStopOnNextDisable(true);
+		}
 
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();

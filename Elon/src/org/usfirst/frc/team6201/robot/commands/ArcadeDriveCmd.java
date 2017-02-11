@@ -110,7 +110,6 @@ public class ArcadeDriveCmd extends Command {
 		double joystickX = Robot.oi.getXAxisOfArcade();
 		double joystickY = Robot.oi.getYAxisOfArcade();
 		double joystickSlider = 0.5 * (1 + (-1 * Robot.oi.getSliderAxisOfArcade()));
-		DriverStation.reportWarning(Double.toString(joystickSlider), true);
 
 		// use mapping function and the joystick slider as a gain
 		// to get a desired turn amount and a desired forward motion speed
@@ -128,12 +127,8 @@ public class ArcadeDriveCmd extends Command {
 		// rate
 		// Checks which side of the robot is considered the "front", and inverts
 		// the Robot.dt.driveLR() parameters if needed
-		// TODO: move RobotMap.fowardOrReverse to DriveTrain.java
-		if (DriveTrain.fowardOrReverse == 1) {
-			Robot.dt.driveLR((processedPower - processedTurn), (processedPower + processedTurn));
-		} else {
-			Robot.dt.driveLR(-1 * (processedPower + processedTurn), -1 * (processedPower - processedTurn));
-		}
+		
+		Robot.dt.driveLR(-(processedPower - processedTurn), -(processedPower + processedTurn));
 	}
 
 	// This command should always run if another command is not running.

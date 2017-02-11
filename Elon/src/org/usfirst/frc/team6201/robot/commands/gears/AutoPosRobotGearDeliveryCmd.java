@@ -22,6 +22,8 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 	 * This boolean is a flag so that when we loose tracking of the peg we know to drive forward if we are close.
 	 */
 	private boolean closeToPeg = false;
+	private boolean stopMe = false;
+	public static double turnTuning = 0.75;
 	
 	/**
 	 * An array of doubles with length of 4.  
@@ -68,10 +70,10 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
     		// if we loose tracking of the peg, but the robot is close, drive forward.
     		if(closeToPeg){
         		//TODO: stop when hit peg.
-        		Robot.dt.driveLR(-0.2, -0.2);
+        		Robot.dt.driveLR(0.2, 0.2);
         	}
     		else {
-    			Robot.dt.driveLR(0.15, -0.15);
+    			Robot.dt.driveLR(-0.15, 0.15);
     		}
     		
     		
@@ -79,25 +81,30 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
     	// case: have tracking of target.
     	else {
     		// center the target in the frame.
-        	if (target[3] > 0.2){
+        	if (target[3] > 0.11){
         		closeToPeg = true;
         	}
+        	if (target [3] >= 0.18){
+        		stopMe = true;
+        		
+        	}
         	
-        	if (target[0] < 0.35){
-        		Robot.dt.driveLR(-0.15, 0.15);
-        		DriverStation.reportWarning("turning: CW", false);
-        	}
-        	else if (target[0] > 0.65){
-        		Robot.dt.driveLR(0.15, -0.15);
-        		DriverStation.reportWarning("turning: CCW", false);
-        	}
         	// drive towards target.
         	else {
-        		double targetXError = (target[0] - 0.5) * 0.5*Robot.oi.getSliderAxisOfArcade();
+        		double targetXError = (target[0] - 0.5);
         		
+        		DriverStation.reportWarning("TargetXError: " + targetXError, false);
+        		if (targetXError < 0) {
+            		targetXError = -0.33*(5*Math.pow(Math.abs(targetXError), 2) - 10*Math.pow(Math.abs(targetXError), 4) + 0.5* Math.pow(Math.abs(targetXError), 0.5)); 
+        		}
+        		else if (targetXError > 0) {
+            		targetXError = 0.33*(5*Math.pow(Math.abs(targetXError), 2) - 10*Math.pow(Math.abs(targetXError), 4) + 0.5* Math.pow(Math.abs(targetXError), 0.5));
+        		}
+        		//DriverStation.reportWarning("Current delta in motor forwards: " + targetXError, false);
         		
-        		Robot.dt.driveLR(-0.2 - targetXError, -0.2 + targetXError);
-        		DriverStation.reportWarning("Forward March: ", false);
+        		DriverStation.reportWarning("Driving: " + targetXError, false);
+        		Robot.dt.driveLR(0.3 + targetXError , 0.3 - targetXError);
+        		//DriverStation.reportWarning("Forward March: ", false);
         	}
     	}
     	
@@ -109,7 +116,8 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
     // use an ultrasonic sensor to determine if this command no longer needs to run?
     // or maybe use accelormeter for hitting wall?
     protected boolean isFinished() {
-        return (target[3] > 0.34);
+        
+    	return stopMe;
     }
 
     // Called once after isFinished returns true

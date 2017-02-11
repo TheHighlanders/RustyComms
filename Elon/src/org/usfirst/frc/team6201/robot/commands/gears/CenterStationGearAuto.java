@@ -19,7 +19,7 @@ public class CenterStationGearAuto extends CommandGroup {
 	 */
     public CenterStationGearAuto() {
     	//TODO: experimentally determine what the correct value of time for here.
-    	addSequential(new DriveTimeCmd(0.3));
+    	addSequential(new DriveTimeCmd(0));
     	
         addSequential(new AutoPosRobotGearDeliveryCmd());
       //  addSequential(new DeliverGearCmd());
