@@ -77,27 +77,27 @@ public class TurnAngleCmd extends Command {
 		}
 		DataCollator.state.setVal("TurnAngleCmdExecute");
 		currentAngleOffset = targetRotation - Robot.dt.getGyroAngle();
-		DriverStation.reportWarning("Gyro Angle is, in execute, right now: " + Robot.dt.getGyroAngle(), false);
 		
 		if (currentAngleOffset >= MAXSPEEDTHRESH){
-			Robot.dt.driveLR(-1,1);
+			Robot.dt.driveLR(1,-1);
 		}
 		
 		else if (currentAngleOffset <= -MAXSPEEDTHRESH){
-			Robot.dt.driveLR(1,-1);
+			Robot.dt.driveLR(-1,1);
 		}
 	
 		else { 
-			turnSpeed = 1.0 / MAXSPEEDTHRESH * currentAngleOffset;
-			Robot.dt.driveLR(-turnSpeed,turnSpeed);
+			turnSpeed = Math.pow(Math.abs(currentAngleOffset), 0.4) / 12;
+			DriverStation.reportWarning("turnSpeed: " +turnSpeed, false);
+			Robot.dt.driveLR(turnSpeed,-turnSpeed);
 				
 		}
 		
 	}
 
 	protected boolean isFinished() {
-		DriverStation.reportWarning("Gyro Angle is, in isFinish, right now: " + Robot.dt.getGyroAngle(), false);
-		return Math.abs(currentAngleOffset) < acceptedAngleOffset;
+		DriverStation.reportWarning("\n\nGyro Angle is, in isFinish, right now: " + Robot.dt.getGyroAngle() + "\nGyroRate is: " + Robot.dt.getGyroRate(), false);
+		return ((Math.abs(currentAngleOffset) < acceptedAngleOffset) && (Math.abs(Robot.dt.getGyroRate()) <= 10));
 	
 	}
 	

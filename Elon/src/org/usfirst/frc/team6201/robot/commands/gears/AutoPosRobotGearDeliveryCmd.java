@@ -47,7 +47,7 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 	/**
 	 * The last known target.
 	 */
-	private double[] lastKnownTarget;
+	private double[] lastKnownTarget = {0.0, 0.0, 0.0, 0.0};
 
 	/**
 	 * Constructor for this command, requires use of the drive train.
@@ -80,7 +80,8 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 				closeToPeg = true;
 			}
 			// if we are really close to the peg, stop!
-			if (target[3] >= 0.18) {
+			if (target[3] >= 0.29) {
+				DriverStation.reportWarning("StopMe is now true", true);
 				stopMe = true;
 
 			}
@@ -89,7 +90,7 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 			 * Calculate desired forward speed based on the distance from the peg.
 			 * If farther from the target, drive faster.
 			 */
-			double avgMotorSpeed =( Math.pow(Math.abs(target[3]), -0.21) - 1.2 )/ 2;
+			double avgMotorSpeed =( Math.pow(Math.abs(target[3]), -0.21) - 1.1 )/ 2;
 			
 			/**
 			 * Distance the target  is from the center of our frame.
@@ -102,14 +103,15 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 			double turningSpeed = 0;
 			
 			if (targetXError < 0) {
-				turningSpeed = -0.5 * (Math.pow(Math.abs(targetXError), 1.6) + 0.5 * Math.pow(targetXError, 2));
+				turningSpeed = -0.5 * (Math.pow(Math.abs(targetXError), 0.8) + 0.7 * Math.pow(targetXError, 2));
 			}
 			else {
-				turningSpeed = 0.5* (Math.pow(Math.abs(targetXError), 1.6) + 0.5 * Math.pow(targetXError, 2));
+				turningSpeed = 0.5* (Math.pow(Math.abs(targetXError), 0.8) + 0.7 * Math.pow(targetXError, 2));
 			}
 			
 
 			Robot.dt.driveLR(avgMotorSpeed+ turningSpeed, avgMotorSpeed - turningSpeed);
+			DriverStation.reportWarning("AvgMotorSpeed: " + avgMotorSpeed + "\tturningspeed: " + turningSpeed, false);
 		}
 		// case: have don't have a recent vision target.
 		else {
@@ -117,8 +119,7 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 
 			// if we loose tracking of the peg, but the robot is close, drive
 			// forward.
-			if (closeToPeg) {
-				// TODO: stop when hit peg.
+			if (lastKnownTarget[3]>=0.29) {
 				Robot.dt.driveLR(0.2, 0.2);
 			} else {
 				if (lastKnownTarget[0] > 0.5) {
@@ -136,13 +137,16 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 	// run?
 	// or maybe use accelormeter for hitting wall?
 	protected boolean isFinished() {
-
-		return stopMe;
+		if (target == null) {
+			return false;
+		}
+		return (target[3] > 0.29);
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
 		Robot.dt.driveLR(0, 0);
+		DriverStation.reportWarning("Ending AutoPosRobotGearDelivery", false);
 	}
 
 	// Called when another command which requires one or more of the same

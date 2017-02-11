@@ -70,9 +70,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		
 		oi = new OI();
 		dt.calibrateGyro();
-
+		chooser = new SendableChooser<>();
 		DataCollator.state.setVal("RobotInit");
 
 		 chooser.addDefault("Default Auto", new DoNothingAuto());
@@ -104,6 +105,7 @@ public class Robot extends IterativeRobot {
 		DataCollator.state.setVal("RobotDisabledPeriodic");
 		Scheduler.getInstance().run();
 		if (dlf.getStopOnNextDisable()) {
+			DriverStation.reportError("Shutting Jetson Down", false);
 			dlf.setStopOnNextDisable(false);
 			dlf.stopLoggingRecorder();
 		}
@@ -117,6 +119,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		
 		DataCollator.state.setVal("RobotAutonomousInit");
 		autonomousCommand = (Command) chooser.getSelected();
 
