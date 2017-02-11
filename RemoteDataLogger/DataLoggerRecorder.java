@@ -15,16 +15,46 @@ import java.util.*;
 
 public class DataLoggerRecorder {
 
+	/**
+	 * Keep recording data until this is false
+	 */
 	private static boolean moreDataExists = true;
+	
+	/**
+	 * If the current file needs a header message, set this to true.
+	 * When this is false, we ignore all incoming header messages.
+	 */
 	private static boolean needNewFile = true;
+	
+	/**
+	 * If true, we make a new file on receipt of next UDP packet.
+	 */
 	private static boolean needHeader = true;
+	
+	/**
+	 * The File that we are writing into.
+	 */
 	private static File f = null;
+	
+	/**
+	 * The FileWriter that we are using to write into our log file.
+	 */
 	private static FileWriter fw = null;
+	
+	/**
+	 * The port overwhich we will be recieving messages.
+	 */
 	private static DatagramSocket inputSocket;
+	
+	/**
+	 * A buffer to hold the byes of the UDP packets prior to parsing into a string.
+	 */
 	private static byte[] buffer;
 
 	/**
-	 * @param args
+	 * Main method, loops to wait for and handle each UDP packet.
+	 * 
+	 * @param args Not used
 	 */
 	public static void main(String[] args) throws IOException {
 
@@ -39,7 +69,7 @@ public class DataLoggerRecorder {
 			fw.close();
 			inputSocket.close();
 		} catch (IOException e) {
-			System.out.println("Starting new file");
+			System.out.println("We need a new file.");
 			fw = null;
 			f = null;
 			needNewFile = true;
@@ -47,6 +77,12 @@ public class DataLoggerRecorder {
 		}
 	}
 
+	/**
+	 * parses the data to determine what type of message it is.
+	 * If the message is relevent, it is added to the logging file. 
+	 * 
+	 * TODO: add support for logging raw String messages to a seprate file
+	 */
 	private static void saveData(FileWriter fw, String data) {
 		try {
 			// is this the exit message?
@@ -54,6 +90,7 @@ public class DataLoggerRecorder {
 				if (fw == null) {
 					System.out.println("No FileWriter Open");
 				} else {
+					fw.append("e");
 					System.out.println("Starting new file");
 					needNewFile = true;
 				}
@@ -74,6 +111,9 @@ public class DataLoggerRecorder {
 		}
 	}
 
+	/**
+	 * creates a new file with the current date and time and prepairs to fill them with data.
+	 */
 	private static void newFile() {
 		File fNew = null;
 		FileWriter fwNew = null;
@@ -88,13 +128,16 @@ public class DataLoggerRecorder {
 
 		f = fNew;
 		fw = fwNew;
-		System.out.println("f and fw set to fNew and fwNew");
+		System.out.println("A new file has been opened.");
 		System.out.println(fw);
 		System.out.println(f);
 		needNewFile = false;
 		needHeader = true;
 	}
 
+	/**
+	 * Prepairs to start listening on all UDP broadcasts on port 5800
+	 */
 	private static void init() {
 		try {
 			inputSocket = new DatagramSocket(5800);
@@ -106,9 +149,10 @@ public class DataLoggerRecorder {
 		newFile();
 	}
 
-	/**
-	 * recieves data and stores it in buffer
-	 */
+  	/**
+  	 * waits up to 5 seconds for new data to arrive. 
+  	 * On arrival, the data is stored in the buffer. If no data arrives within 5 seconds, a new file is triggered to be created.
+  	 */
 	private static void receiveAndProcessData() {
 		try {
 			DatagramPacket dataPacket = new DatagramPacket(buffer, buffer.length);
