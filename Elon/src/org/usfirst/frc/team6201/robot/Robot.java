@@ -62,12 +62,11 @@ public class Robot extends IterativeRobot {
 	// section of the match.
 	// See robotInit() for how this is set.
 	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
+	SendableChooser<Command> chooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
-	 * used for any initialization code. TODO: look up how calibration works if
-	 * we have multiple gyro objects. Maybe chief delphi
+	 * used for any initialization code. 
 	 */
 	@Override
 	public void robotInit() {
@@ -76,9 +75,10 @@ public class Robot extends IterativeRobot {
 
 		DataCollator.state.setVal("RobotInit");
 
-		// chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		// TODO: implement this for our different auto routines.
+		 chooser.addDefault("Default Auto", new DoNothingAuto());
+		 chooser.addObject("CenterStation", new CenterStationGearAuto());
+		 chooser.addObject("OuterStation", new OuterStationGearAuto());
+		
 		SmartDashboard.putData("Auto mode", chooser);
 	}
 
@@ -118,24 +118,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		DataCollator.state.setVal("RobotAutonomousInit");
-		autonomousCommand = chooser.getSelected();
-		
-
-		String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-		switch (autoSelected) {
-
-		case "None":
-			autonomousCommand = new DoNothingAuto();
-			break;
-		case "Outer Station Gear Auto":
-			autonomousCommand = new OuterStationGearAuto();
-			break;
-		case "Do Nothing":
-		default:
-			autonomousCommand = new CenterStationGearAuto();
-			break;
-
-		}
+		autonomousCommand = (Command) chooser.getSelected();
 
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null) {

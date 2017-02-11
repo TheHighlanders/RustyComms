@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * TODO: FINISH
  * 
  * @author David Matthews
- * @author Adrianna Massie
+ * @author Adriana Massie
  *
  */
 public class OuterStationGearAuto extends CommandGroup {
@@ -17,7 +17,6 @@ public class OuterStationGearAuto extends CommandGroup {
     public OuterStationGearAuto() {
     	
     	addSequential(new DriveTimeCmd(1));
-    	addSequential(new HuntForTargetCmd());
     	addSequential(new AutoPosRobotGearDeliveryCmd());
     //	addSequential(new DeliverGearCmd());
     	
