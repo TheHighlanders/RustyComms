@@ -105,6 +105,7 @@ public class Robot extends IterativeRobot {
 		DataCollator.state.setVal("RobotDisabledPeriodic");
 		Scheduler.getInstance().run();
 		if (dlf.getStopOnNextDisable()) {
+			DriverStation.reportError("Shutting Jetson Down", false);
 			dlf.setStopOnNextDisable(false);
 			dlf.stopLoggingRecorder();
 		}

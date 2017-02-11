@@ -103,10 +103,10 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 			double turningSpeed = 0;
 			
 			if (targetXError < 0) {
-				turningSpeed = -0.5 * (Math.pow(Math.abs(targetXError), 1.2) + 0.5 * Math.pow(targetXError, 2));
+				turningSpeed = -0.5 * (Math.pow(Math.abs(targetXError), 0.8) + 0.7 * Math.pow(targetXError, 2));
 			}
 			else {
-				turningSpeed = 0.5* (Math.pow(Math.abs(targetXError), 1.2) + 0.5 * Math.pow(targetXError, 2));
+				turningSpeed = 0.5* (Math.pow(Math.abs(targetXError), 0.8) + 0.7 * Math.pow(targetXError, 2));
 			}
 			
 
