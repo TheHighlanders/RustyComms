@@ -1,4 +1,7 @@
 package org.usfirst.frc.team6201.robot.dataLogger;
+
+
+
 /**
  * This class is used to store the DataField objects that are being logged.  It has methods to generate header Strings, and data Strings for CSV files.
  * See DataLoggerPublisher for how these methods get used.
@@ -33,6 +36,9 @@ public class DataCollator {
 	public static DataField<Double> targetW = new DataField<>("targetW");
 	public static DataField<Double> targetH = new DataField<>("targetH");
 	public static DataField<String> state = new DataField<>("state");
+	
+	public static Queue<String> messages = new Queue<>();
+	
 	private static DataField[] dataFieldArray  = {state, gyroAngle, gyroRate, motorSpeedLeft, motorSpeedRight, motorRoller, batteryVoltage, pdpTemp, accelX, accelY, accelZ, current1, current2, current3, current14, current15, targetX, targetY, targetW, targetH};
 
 	/**

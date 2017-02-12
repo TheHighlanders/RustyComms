@@ -74,6 +74,7 @@ public class DataLoggerPublisherThread extends Thread {
 	 */
 	public void run() {
 		while (toLog) {
+			sendMessages();
 			if (sequenceNumb % 100 == 0) {
 				sendData(getHeader());
 				sequenceNumb++;
@@ -123,5 +124,11 @@ public class DataLoggerPublisherThread extends Thread {
 	 */
 	private String getStopMessage() {
 		return ("e");
+	}
+	
+	private void sendMessages() {
+		while (!DataCollator.messages.isEmpty()){
+			sendData("e" + DataCollator.messages.removeFrontElement());
+		}
 	}
 }
