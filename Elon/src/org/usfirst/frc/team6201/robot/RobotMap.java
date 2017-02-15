@@ -18,6 +18,9 @@ public class RobotMap {
 	public static final int LOGITECH_Y_AXIS = 1;
 	public static final int LOGITECH_ROTATE_AXIS = 2;
 	public static final int LOGITECH_SLIDER_AXIS = 3;
+	
+	// Control Board
+	public static final int CONTROLBOARD = 0;
 
 	// Drive Train
 	public static final int LEFT_DRIVE1 = 1;

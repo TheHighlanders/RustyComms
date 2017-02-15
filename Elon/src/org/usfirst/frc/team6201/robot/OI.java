@@ -28,6 +28,7 @@ public class OI {
 	 * Initialized with the USB devices plugged into the robot
 	 */
 	private Joystick logitech = new Joystick(RobotMap.LOGITECH);
+	private Joystick controlBoard = new Joystick(RobotMap.CONTROLBOARD);
 	
 	/**
 	 * @return  a double corresponding to how much the joystick's handle is rotated.
@@ -102,6 +103,9 @@ public class OI {
 		Button b5 = new JoystickButton(logitech, 5);
 		b5.whenPressed(new AutoPosRobotGearDeliveryCmd());
 		
+		//Climbs rope when GREEN button on control board is held down
+		Button controlClimb = new JoystickButton(controlBoard, 8);
+		controlClimb.whileHeld(new ClimbRopeCmd());
 		
 	}
 	
