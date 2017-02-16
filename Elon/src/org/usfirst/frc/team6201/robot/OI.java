@@ -100,9 +100,6 @@ public class OI {
 		Button b4 = new JoystickButton(logitech, 4);
 		b4.whenPressed(new DriveTimeCmd(3));
 		
-		Button b5 = new JoystickButton(logitech, 5);
-		b5.whenPressed(new AutoPosRobotGearDeliveryCmd());
-		
 		//Climbs rope when GREEN button on control board is held down
 		Button controlClimb = new JoystickButton(controlBoard, 8);
 		controlClimb.whileHeld(new ClimbRopeCmd());

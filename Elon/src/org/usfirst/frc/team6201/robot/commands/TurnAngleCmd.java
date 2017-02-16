@@ -87,8 +87,8 @@ public class TurnAngleCmd extends Command {
 		}
 	
 		else { 
-			turnSpeed = Math.pow(Math.abs(currentAngleOffset), 0.4) / 12;
-			DriverStation.reportWarning("turnSpeed: " +turnSpeed, false);
+			turnSpeed = Math.pow(Math.abs(currentAngleOffset), 0.8) / 100;
+			DriverStation.reportWarning("turnSpeed: " +turnSpeed + "currentAngleOffset: " +currentAngleOffset, false);
 			Robot.dt.driveLR(turnSpeed,-turnSpeed);
 				
 		}
