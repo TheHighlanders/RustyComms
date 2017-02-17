@@ -1,5 +1,3 @@
-
-
 /**
  * This class is used for the final step of the data logger; the logging. Currently it is configured to do a UDP broadcast so that if a stage 3 brownout occurs, we will have the crucial data leading up until the crash.
  * for more information about stage 3 brownouts, please visit our wiki at https://github.com/TheHighlanders/Wiki/wiki/Brownouts
@@ -11,7 +9,6 @@
 
 import java.io.*;
 import java.net.*;
-import java.util.*;
 
 public class DataLoggerPublisherThread extends Thread {
 
@@ -19,7 +16,7 @@ public class DataLoggerPublisherThread extends Thread {
 	/**
 	 * This sets how often a row of data is sent over UDP, in ms. Lower values = more data resolution.
 	 */
-	private final long SLEEP_TIME = 10;
+	private final long SLEEP_TIME = 0;
 	/**
 	 * Set to false to end this thread.
 	 */
@@ -54,10 +51,18 @@ public class DataLoggerPublisherThread extends Thread {
 	/**
 	 * Gracefully shuts down logger, sending a message to the UDP receivers that logging is ending.
 	 */
-	public void stopLogging() {
-		toLog = false;
+	public void stopLoggingRecorder() {
 		sendData(getStopMessage());
 	}
+	
+	/**
+	 * Stops the logger publisher after sending a message to the recorders to gracefully end logging.
+	 */
+	public void endAllLogging() {
+		stopLoggingRecorder();
+		toLog = false;
+	}
+	
 
 	/**
 	 * Calls on helper methods to ship logging data over UDP until toLog becomes false.
@@ -65,16 +70,18 @@ public class DataLoggerPublisherThread extends Thread {
 	 */
 	public void run() {
 		while (toLog) {
+			sendMessages();
 			if (sequenceNumb % 100 == 0) {
 				sendData(getHeader());
 				sequenceNumb++;
 			}
-            if (sequenceNumb%1000 < 10 && sequenceNumb%1000 > -10 && sequenceNumb> 100) {
-        stopLogging();
-      }
 			sendData(getData());
 			sequenceNumb++;
-		}
+            try {
+                sleep(SLEEP_TIME);
+            } catch (InterruptedException e) {
+            }
+        }
 	}
 
 	/**
@@ -82,14 +89,12 @@ public class DataLoggerPublisherThread extends Thread {
 	 * @param s The string to be sent over UDP.
 	 */
 	private void sendData(String s) {
+        System.out.println(s);
 		try {
 			buffer = s.getBytes();
-			DatagramPacket outPacket = new DatagramPacket(buffer, buffer.length, destaddress, 4445);
+			DatagramPacket outPacket = new DatagramPacket(buffer, buffer.length, destaddress, 5800);
 			outSocket.send(outPacket);
-			try {
-				sleep(SLEEP_TIME);
-			} catch (InterruptedException e) {
-			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			toLog = false;
@@ -100,7 +105,7 @@ public class DataLoggerPublisherThread extends Thread {
 	 * @return A String flagged as a header row for the CSV file.
 	 */
 	private String getHeader() {
-		return ("h," + Integer.toString(sequenceNumb) + "," + DataCollator.getHeader() + "\n");
+		return ("hMessageType,SequenceNumber," + DataCollator.getHeader() + "\n");
 	}
 
 	/**
@@ -117,5 +122,11 @@ public class DataLoggerPublisherThread extends Thread {
 	 */
 	private String getStopMessage() {
 		return ("e");
+	}
+	
+	private void sendMessages() {
+		while (!DataCollator.messages.isEmpty()){
+			sendData("m" + DataCollator.messages.removeFrontElement() + "\n");
+		}
 	}
 }

@@ -1,13 +1,10 @@
-
 import java.io.*;
 
 public class DataLoggerPublisher {
     public static void main(String[] args) throws IOException {
         new DataLoggerPublisherThread().start();
-        for (double i = 0; i <4000000; i++) {
+        for (double i = 0; i <100000000; i++) {
             
-            DataCollator.totalCurrent.setVal( i);
-            DataCollator.gyro.setVal(i);
             DataCollator.motorSpeedLeft.setVal(i);
             DataCollator.motorSpeedRight.setVal(i);
             DataCollator.motorRoller.setVal(i);
@@ -22,8 +19,11 @@ public class DataLoggerPublisher {
             DataCollator.current14.setVal(i);
             DataCollator.current15.setVal(i);
             DataCollator.state.setVal("Hello World!" + i);
-            System.out.println("Hello World!" + i);
-
+            for (int j = 0; j <3; j ++) {
+                if (i % 170 == 0) {
+                    DataCollator.messages.add("This is a test: No." + j + " in pass of: " + i);
+                }
+            }
         }
         System.out.println("Goodbye World!");
     }
