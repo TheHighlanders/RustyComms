@@ -80,7 +80,7 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 				closeToPeg = true;
 			}
 			// if we are really close to the peg, stop!
-			if (target[3] >= 0.29) {
+			if (target[3] >= 0.21) {
 				DriverStation.reportWarning("StopMe is now true", true);
 				stopMe = true;
 
@@ -103,10 +103,10 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 			double turningSpeed = 0;
 			
 			if (targetXError < 0) {
-				turningSpeed = -0.5 * (Math.pow(Math.abs(targetXError), 0.8) + 0.7 * Math.pow(targetXError, 2));
+				turningSpeed = -0.36 * (Math.pow(Math.abs(targetXError), 0.75) - 0.271 * Math.pow(targetXError, 2));
 			}
 			else {
-				turningSpeed = 0.5* (Math.pow(Math.abs(targetXError), 0.8) + 0.7 * Math.pow(targetXError, 2));
+				turningSpeed = 0.36* (Math.pow(Math.abs(targetXError), 0.75) - 0.271 * Math.pow(targetXError, 2));
 			}
 			
 
@@ -119,7 +119,7 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 
 			// if we loose tracking of the peg, but the robot is close, drive
 			// forward.
-			if (lastKnownTarget[3]>=0.29) {
+			if (closeToPeg) {
 				Robot.dt.driveLR(0.2, 0.2);
 			} else {
 				if (lastKnownTarget[0] > 0.5) {
@@ -137,10 +137,7 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 	// run?
 	// or maybe use accelormeter for hitting wall?
 	protected boolean isFinished() {
-		if (target == null) {
-			return false;
-		}
-		return (target[3] > 0.29);
+		return lastKnownTarget[3] >= 0.21;
 	}
 
 	// Called once after isFinished returns true

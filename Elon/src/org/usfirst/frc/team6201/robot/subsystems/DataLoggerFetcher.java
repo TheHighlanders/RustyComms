@@ -35,7 +35,7 @@ public class DataLoggerFetcher extends Subsystem {
 	/**
 	 * to get access to the accelerometer for logging.
 	 */
-	private ADXL362 accel;
+//	current is not being foundprivate ADXL362 accel;
 	
 	/**
 	 * Periodically broadcasts current data over UDP.
@@ -45,7 +45,7 @@ public class DataLoggerFetcher extends Subsystem {
 	
 	public DataLoggerFetcher() {
 		powerPanel = new PowerDistributionPanel(0);
-		accel = new ADXL362(Accelerometer.Range.k16G);
+// see above		accel = new ADXL362(Accelerometer.Range.k16G);
 		
 		try {
 			loggerPublisherThread = new DataLoggerPublisherThread();
@@ -91,6 +91,9 @@ public class DataLoggerFetcher extends Subsystem {
 	// the following update the DataFields of the DataCollator.
 	
 	
+	public void setCurrent0 (){
+		DataCollator.current0.setVal(powerPanel.getCurrent(0));
+	}
 	public void setCurrent1() {
 		DataCollator.current1.setVal(powerPanel.getCurrent(1));
 	}
@@ -99,6 +102,12 @@ public class DataLoggerFetcher extends Subsystem {
 	}
 	public void setCurrent3() {
 		DataCollator.current3.setVal(powerPanel.getCurrent(3));
+	}
+	public void setCurrent4 (){
+		DataCollator.current4.setVal(powerPanel.getCurrent(4));
+	}
+	public void setCurrent13 (){
+		DataCollator.current13.setVal(powerPanel.getCurrent(13));
 	}
 	public void setCurrent14() {
 		DataCollator.current14.setVal(powerPanel.getCurrent(14));
@@ -118,13 +127,14 @@ public class DataLoggerFetcher extends Subsystem {
 	public void setGyro() {
 		DataCollator.gyroAngle.setVal(Robot.dt.getGyroAngle());
 	}
-	public void setAccelX() {
-		DataCollator.accelX.setVal(accel.getX());
-	}
-	public void setAccelY() {
-		DataCollator.accelY.setVal(accel.getY());
-	}
-	public void setAccelZ() {
-		DataCollator.accelZ.setVal(accel.getZ());
-	}
+//	public void setAccelX() {
+//		DataCollator.accelX.setVal(accel.getX());
+//	}
+//	public void setAccelY() {
+//		DataCollator.accelY.setVal(accel.getY());
+//	}
+//	public void setAccelZ() {
+//		DataCollator.accelZ.setVal(accel.getZ());
+//	}
+
 }

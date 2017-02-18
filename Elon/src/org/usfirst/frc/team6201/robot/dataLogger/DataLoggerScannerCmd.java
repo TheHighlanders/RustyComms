@@ -26,14 +26,15 @@ public class DataLoggerScannerCmd extends Command {
      * Calls a bunch of methods in the Robot.dlf subsystem in order to update the DataCollator's DataField object's values.
      */
     protected void execute() {
-    	Robot.dlf.setAccelX();
-    	Robot.dlf.setAccelY();
-    	Robot.dlf.setAccelZ();
+//    	Robot.dlf.setAccelX();
+//    	Robot.dlf.setAccelY();
+//    	Robot.dlf.setAccelZ();
+    	Robot.dlf.setCurrent0();
     	Robot.dlf.setCurrent1();
-    	Robot.dlf.setCurrent14();
     	Robot.dlf.setCurrent2();
     	Robot.dlf.setCurrent3();
-    	Robot.dlf.setCurrent15();
+    	Robot.dlf.setCurrent4();
+    	Robot.dlf.setCurrent13();
     	Robot.dlf.setRate();
     	Robot.dlf.setTemp();
     	Robot.dlf.setTemp();

@@ -23,9 +23,12 @@ public class DataCollator {
 	public static DataField<Double> accelX =  new DataField<>("accelX");
 	public static DataField<Double> accelY =  new DataField<>("accelY");
 	public static DataField<Double> accelZ =  new DataField<>("accelZ");
+	public static DataField<Double> current0 =  new DataField<>("current0");
 	public static DataField<Double> current1 =  new DataField<>("current1");
 	public static DataField<Double> current2 =  new DataField<>("current2");
 	public static DataField<Double> current3 =  new DataField<>("current3");
+	public static DataField<Double> current4 =  new DataField<>("current4");
+	public static DataField<Double> current13 =  new DataField<>("current13");
 	public static DataField<Double> current14 =  new DataField<>("current14");
 	public static DataField<Double> current15 =  new DataField<>("current15");
 	public static DataField<Double> targetX = new DataField<>("targetX");
@@ -33,7 +36,7 @@ public class DataCollator {
 	public static DataField<Double> targetW = new DataField<>("targetW");
 	public static DataField<Double> targetH = new DataField<>("targetH");
 	public static DataField<String> state = new DataField<>("state");
-	private static DataField[] dataFieldArray  = {state, gyroAngle, gyroRate, motorSpeedLeft, motorSpeedRight, motorRoller, batteryVoltage, pdpTemp, accelX, accelY, accelZ, current1, current2, current3, current14, current15, targetX, targetY, targetW, targetH};
+	private static DataField[] dataFieldArray  = {state, gyroAngle, gyroRate, motorSpeedLeft, motorSpeedRight, motorRoller, batteryVoltage, pdpTemp, accelX, accelY, accelZ, current0,current1, current2, current3, current4, current13, current14, current15, targetX, targetY, targetW, targetH};
 
 	/**
 	 * 

@@ -76,8 +76,8 @@ public class Robot extends IterativeRobot {
 		chooser = new SendableChooser<>();
 		DataCollator.state.setVal("RobotInit");
 
-		 chooser.addDefault("Default Auto", new DoNothingAuto());
-		 chooser.addObject("CenterStation", new CenterStationGearAuto());
+		 chooser.addObject("Default Auto", new DoNothingAuto());
+		 chooser.addDefault("CenterStation", new CenterStationGearAuto());
 		 chooser.addObject("OuterStation", new OuterStationGearAuto());
 		
 		SmartDashboard.putData("Auto mode", chooser);
