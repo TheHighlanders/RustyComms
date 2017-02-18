@@ -77,7 +77,7 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 
 			
 			// if we are really close to the peg, stop!
-			if (target[3] >= 0.15 || lastKnownTarget[3] >= 0.15) {
+			if (target[3] >= 0.15 && lastKnownTarget[3] >= 0.15) {
 				DriverStation.reportWarning("StopMe is now true", true);
 				stopMe = true;
 
@@ -121,11 +121,11 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 			if (stopMe != true) {
 				
 				if (lastKnownTarget[0] > 0.5) {
-					Robot.dt.driveLR(0.15, -0.15);
+					Robot.dt.driveLR(0.15, -0.2);
 				}
 
 				else {
-					Robot.dt.driveLR(-0.15, 0.15);
+					Robot.dt.driveLR(-0.2, 0.15);
 				}
 
 			}
@@ -136,7 +136,9 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 	// run?
 	// or maybe use accelormeter for hitting wall?
 	protected boolean isFinished() {
-		return stopMe;
+		DriverStation.reportError("Stopping AutoPosRobot!!!!!\n\n", false);
+		
+		return lastKnownTarget[3] >= 0.15;
 	}
 
 	// Called once after isFinished returns true

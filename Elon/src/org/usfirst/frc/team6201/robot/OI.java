@@ -70,19 +70,6 @@ public class OI {
 	}
 
 	public OI() {
-		
-		Button b12 = new JoystickButton(logitech, 12);
-		//SUPPOSED to turn the robot 90 degrees when the 12 button is pressed
-		b12.whenPressed(new TurnAngleCmd(90, 5));
-		
-		Button b11 = new JoystickButton(logitech, 11);
-		//SUPPOSED to turn the robot 90 degrees when the 12 button is pressed
-		b11.whenPressed(new TurnAngleCmd(-90, 5));
-		
-		Button b10 = new JoystickButton(logitech, 10);
-		//SUPPOSED to turn the robot 90 degrees when the 12 button is pressed
-		b10.whenPressed(new TurnAngleCmd(180, 5));
-		
 		//starts the process of climbing the rope
 		Button b1 = new JoystickButton(logitech, 1);
 		b1.whileHeld(new ClimbRopeCmd());
@@ -101,8 +88,8 @@ public class OI {
 		b4.whenPressed(new DriveTimeCmd(3));
 		
 		//Climbs rope when GREEN button on control board is held down
-		Button controlClimb = new JoystickButton(controlBoard, 8);
-		controlClimb.whileHeld(new ClimbRopeCmd());
+//		Button controlClimb = new JoystickButton(controlBoard, 8);
+	//	controlClimb.whileHeld(new ClimbRopeCmd());
 		
 	}
 	
