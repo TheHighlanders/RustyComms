@@ -75,12 +75,9 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 		if (target != null) {
 			lastKnownTarget = target;
 
-			// if we are close the peg, record it
-			if (target[3] > 0.11) {
-				closeToPeg = true;
-			}
+			
 			// if we are really close to the peg, stop!
-			if (target[3] >= 0.21) {
+			if (target[3] >= 0.15 || lastKnownTarget[3] >= 0.15) {
 				DriverStation.reportWarning("StopMe is now true", true);
 				stopMe = true;
 
@@ -90,7 +87,7 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 			 * Calculate desired forward speed based on the distance from the peg.
 			 * If farther from the target, drive faster.
 			 */
-			double avgMotorSpeed =( Math.pow(Math.abs(target[3]), -0.21) - 1.1 )/ 2;
+			double avgAvailablePower =( Math.pow(Math.abs(target[3]), -0.21) - 1.1 )/ 2;
 			
 			/**
 			 * Distance the target  is from the center of our frame.
@@ -98,20 +95,22 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 			double targetXError = (target[0] - 0.5);
 			
 			/**
-			 * A function of how far from the center of the field of view the target is.
+			 * How much are we going to be turning? a percentage of the available power, which is calculated by target distance.
 			 */
-			double turningSpeed = 0;
+			double turningPower;
 			
 			if (targetXError < 0) {
-				turningSpeed = -0.36 * (Math.pow(Math.abs(targetXError), 0.75) - 0.271 * Math.pow(targetXError, 2));
+				turningPower = avgAvailablePower * -1 * turnPercent(targetXError);
 			}
 			else {
-				turningSpeed = 0.36* (Math.pow(Math.abs(targetXError), 0.75) - 0.271 * Math.pow(targetXError, 2));
+				turningPower = avgAvailablePower * turnPercent(targetXError); 
 			}
 			
+			double motorPower = avgAvailablePower - Math.abs(turningPower);
 
-			Robot.dt.driveLR(avgMotorSpeed+ turningSpeed, avgMotorSpeed - turningSpeed);
-			DriverStation.reportWarning("AvgMotorSpeed: " + avgMotorSpeed + "\tturningspeed: " + turningSpeed, false);
+			Robot.dt.driveLR(motorPower+ turningPower, motorPower - turningPower);
+			
+			DriverStation.reportWarning("motorPower: " + motorPower + "\tturningspeed: " + turningPower, false);
 		}
 		// case: have don't have a recent vision target.
 		else {
@@ -119,9 +118,8 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 
 			// if we loose tracking of the peg, but the robot is close, drive
 			// forward.
-			if (closeToPeg) {
-				Robot.dt.driveLR(0.2, 0.2);
-			} else {
+			if (stopMe != true) {
+				
 				if (lastKnownTarget[0] > 0.5) {
 					Robot.dt.driveLR(0.15, -0.15);
 				}
@@ -129,6 +127,7 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 				else {
 					Robot.dt.driveLR(-0.15, 0.15);
 				}
+
 			}
 		}
 	}
@@ -137,7 +136,7 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 	// run?
 	// or maybe use accelormeter for hitting wall?
 	protected boolean isFinished() {
-		return lastKnownTarget[3] >= 0.21;
+		return stopMe;
 	}
 
 	// Called once after isFinished returns true
@@ -151,4 +150,15 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 	protected void interrupted() {
 		end();
 	}
+	
+	
+	/**
+	 * 
+	 * @param xPos The X position of the target.
+	 * @return The percentage of the available power that we want to use for turning.
+	 */
+	private double turnPercent(double xPos){
+		return (0.5/((1 + Math.pow(2.71828183845, -5 *(1.5*xPos - 0.6)))) + 0.4) / 2;
+	}
+
 }
