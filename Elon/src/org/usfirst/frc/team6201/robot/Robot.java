@@ -2,8 +2,8 @@
 package org.usfirst.frc.team6201.robot;
 
 import org.usfirst.frc.team6201.robot.commands.DoNothingAuto;
-import org.usfirst.frc.team6201.robot.commands.gears.CenterStationGearAuto;
-import org.usfirst.frc.team6201.robot.commands.gears.OuterStationGearAuto;
+import org.usfirst.frc.team6201.robot.commands.gears.CenterStationAutoCmdGroup;
+import org.usfirst.frc.team6201.robot.commands.gears.BoilerStationAutoCmdGroup;
 import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
 import org.usfirst.frc.team6201.robot.subsystems.DataLoggerFetcher;
 import org.usfirst.frc.team6201.robot.subsystems.DriveTrain;
@@ -62,7 +62,6 @@ public class Robot extends IterativeRobot {
 	// section of the match.
 	// See robotInit() for how this is set.
 	Command autonomousCommand;
-	SendableChooser<Command> chooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -73,14 +72,10 @@ public class Robot extends IterativeRobot {
 		
 		oi = new OI();
 		dt.calibrateGyro();
-		chooser = new SendableChooser<>();
 		DataCollator.state.setVal("RobotInit");
 
-		 chooser.addObject("Default Auto", new DoNothingAuto());
-		 chooser.addDefault("CenterStation", new CenterStationGearAuto());
-		 chooser.addObject("OuterStation", new OuterStationGearAuto());
-		
-		SmartDashboard.putData("Auto mode", chooser);
+		SmartDashboard.putString("Auto", "");
+
 	}
 
 	/**
@@ -121,7 +116,20 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		
 		DataCollator.state.setVal("RobotAutonomousInit");
-		autonomousCommand = (Command) chooser.getSelected();
+		switch (SmartDashboard.getString("Auto", "D")){
+		case "B" :
+			autonomousCommand = new BoilerStationAutoCmdGroup();
+			break;
+		case "L" :
+			DriverStation.reportError("NEED TO WRITE LoaderStationAuto!!!!!!!!!!!!!!!!", false);
+			break;
+		case "C" :
+			autonomousCommand = new CenterStationAutoCmdGroup();
+			break;
+		default :
+			autonomousCommand = new DoNothingAuto();
+			break;
+		}
 
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null) {

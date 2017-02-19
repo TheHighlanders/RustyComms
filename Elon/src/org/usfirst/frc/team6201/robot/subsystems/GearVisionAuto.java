@@ -1,6 +1,6 @@
 package org.usfirst.frc.team6201.robot.subsystems;
 
-import org.usfirst.frc.team6201.robot.commands.gears.AutoPosRobotGearDeliveryCmd;
+import org.usfirst.frc.team6201.robot.commands.gears.CenterStationAutoPos;
 import org.usfirst.frc.team6201.robot.gearVision.GearVisionReceiverThread;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -34,11 +34,11 @@ public class GearVisionAuto extends Subsystem {
 	}
 
 	public void setTuning(double number) {
-		AutoPosRobotGearDeliveryCmd.turnTuning = number;
+		CenterStationAutoPos.turnTuning = number;
 		
 	}
 	
 	public double getTuning (){
-		return AutoPosRobotGearDeliveryCmd.turnTuning;
+		return CenterStationAutoPos.turnTuning;
 	}
 }
