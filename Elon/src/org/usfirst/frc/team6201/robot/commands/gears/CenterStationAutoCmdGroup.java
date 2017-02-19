@@ -12,17 +12,17 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * @author Adriana Massie
  * @author David Matthews
  */
-public class CenterStationGearAuto extends CommandGroup {
+public class CenterStationAutoCmdGroup extends CommandGroup {
 
 	/**
 	 * The routine of commands to run if our robot is going to deliver the gear to the center lift during auto.
 	 */
-    public CenterStationGearAuto() {
+    public CenterStationAutoCmdGroup() {
     	//TODO: experimentally determine what the correct value of time for here.
     	
     	
-        addSequential(new AutoPosRobotGearDeliveryCmd());
-        addSequential(new DriveTimeCmd(10));
+        addSequential(new CenterStationAutoPos());
+        addSequential(new DriveTimeCmd(10, 0.15));
         
     }
 }

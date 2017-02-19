@@ -15,14 +15,14 @@ import edu.wpi.first.wpilibj.command.Command;
  * @author David Matthews
  * @author Adriana Massie
  */
-public class AutoPosRobotGearDeliveryCmd extends Command {
+public class CenterStationAutoPos extends Command {
 	/**
 	 * If we close to the peg, we may loose tracking of the target. This boolean
 	 * is a flag so that when we loose tracking of the peg we know to drive
 	 * forward if we are close.
 	 */
-	private boolean closeToPeg = false;
 	private boolean stopMe = false;
+
 	public static double turnTuning = 0.75;
 
 	/**
@@ -52,7 +52,7 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 	/**
 	 * Constructor for this command, requires use of the drive train.
 	 */
-	public AutoPosRobotGearDeliveryCmd() {
+	public CenterStationAutoPos() {
 		requires(Robot.dt);
 	}
 
@@ -73,6 +73,9 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 
 		// case: we have a recent vision target
 		if (target != null) {
+
+		
+
 			lastKnownTarget = target;
 
 			
@@ -87,7 +90,7 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 			 * Calculate desired forward speed based on the distance from the peg.
 			 * If farther from the target, drive faster.
 			 */
-			double avgAvailablePower =( Math.pow(Math.abs(target[3]), -0.21) - 1.1 )/ 2;
+			double avgAvailablePower =( Math.pow(target[3] + 0.2, -0.3) - 1.1 )/1.5;
 			
 			/**
 			 * Distance the target  is from the center of our frame.
@@ -99,6 +102,7 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 			 */
 			double turningPower;
 			
+			
 			if (targetXError < 0) {
 				turningPower = avgAvailablePower * -1 * turnPercent(targetXError);
 			}
@@ -107,10 +111,12 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 			}
 			
 			double motorPower = avgAvailablePower - Math.abs(turningPower);
-
-			Robot.dt.driveLR(motorPower+ turningPower, motorPower - turningPower);
+			
+			double leftPower = motorPower+turningPower;
+			double rightPower = (motorPower - turningPower);
 			
 			DriverStation.reportWarning("motorPower: " + motorPower + "\tturningspeed: " + turningPower, false);
+			Robot.dt.driveLR(leftPower, rightPower);
 		}
 		// case: have don't have a recent vision target.
 		else {
@@ -138,7 +144,7 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 	protected boolean isFinished() {
 		DriverStation.reportError("Stopping AutoPosRobot!!!!!\n\n", false);
 		
-		return lastKnownTarget[3] >= 0.15;
+		return ( lastKnownTarget[3] >= 0.15);
 	}
 
 	// Called once after isFinished returns true
@@ -160,7 +166,11 @@ public class AutoPosRobotGearDeliveryCmd extends Command {
 	 * @return The percentage of the available power that we want to use for turning.
 	 */
 	private double turnPercent(double xPos){
-		return (0.5/((1 + Math.pow(2.71828183845, -5 *(1.5*xPos - 0.6)))) + 0.4) / 2;
+		
+		return( Math.log10(Math.abs(xPos*100) + 2 )/ 10) / Math.log10(2);
+	
+		
+		
 	}
 
 }

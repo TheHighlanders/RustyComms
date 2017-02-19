@@ -6,7 +6,7 @@ import org.usfirst.frc.team6201.robot.commands.DescendRopeCmd;
 import org.usfirst.frc.team6201.robot.commands.DriveTimeCmd;
 import org.usfirst.frc.team6201.robot.commands.StopClimbingCmd;
 import org.usfirst.frc.team6201.robot.commands.TurnAngleCmd;
-import org.usfirst.frc.team6201.robot.commands.gears.AutoPosRobotGearDeliveryCmd;
+import org.usfirst.frc.team6201.robot.commands.gears.CenterStationAutoPos;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -83,9 +83,6 @@ public class OI {
 		Button b3 = new JoystickButton(logitech, 3);
 		b3.whileHeld(new DescendRopeCmd());
 		
-		//Drives for, in this case, 3 seconds
-		Button b4 = new JoystickButton(logitech, 4);
-		b4.whenPressed(new DriveTimeCmd(3));
 		
 		//Climbs rope when GREEN button on control board is held down
 //		Button controlClimb = new JoystickButton(controlBoard, 8);

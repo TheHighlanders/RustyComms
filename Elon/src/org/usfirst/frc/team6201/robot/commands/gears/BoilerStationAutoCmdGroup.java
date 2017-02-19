@@ -12,13 +12,12 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * @author Adriana Massie
  *
  */
-public class OuterStationGearAuto extends CommandGroup {
+public class BoilerStationAutoCmdGroup extends CommandGroup {
 
-    public OuterStationGearAuto() {
+    public BoilerStationAutoCmdGroup() {
     	
-    	addSequential(new DriveTimeCmd(1));
-    	addSequential(new AutoPosRobotGearDeliveryCmd());
-    	addSequential(new DriveTimeCmd(0.17));
+    	addSequential(new BoilerStationAutoPos());
+    	addSequential(new DriveTimeCmd(10,0.15));
     	
     }
 }

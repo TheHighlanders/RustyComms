@@ -21,6 +21,7 @@ public class DriveTimeCmd extends Command {
 	private Timer timer = new Timer ();
 	
 	private double drivingTime;
+	private double drivingSpeed;
 	
 	/**
 	 * 
@@ -28,9 +29,10 @@ public class DriveTimeCmd extends Command {
 	 * 
 	 * @param drivingTime	Number of seconds you want to drive forward
 	 */
-	public DriveTimeCmd(double drivingTime) {
+	public DriveTimeCmd(double drivingTime, double drivingSpeed) {
 		
 		this.drivingTime = drivingTime;
+		this.drivingSpeed = drivingSpeed;
 		requires(Robot.dt);
 		
 	}
@@ -74,7 +76,7 @@ public class DriveTimeCmd extends Command {
 			
 		} else {
 			
-			Robot.dt.driveLR(0.15, 0.15);
+			Robot.dt.driveLR(drivingSpeed, drivingSpeed);
 			
 		}
 		
