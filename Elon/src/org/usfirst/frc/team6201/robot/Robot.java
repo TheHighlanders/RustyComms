@@ -3,6 +3,7 @@ package org.usfirst.frc.team6201.robot;
 
 import org.usfirst.frc.team6201.robot.commands.DoNothingAuto;
 import org.usfirst.frc.team6201.robot.commands.gears.CenterStationAutoCmdGroup;
+import org.usfirst.frc.team6201.robot.commands.gears.LoaderStationAutoCmdGroup;
 import org.usfirst.frc.team6201.robot.commands.gears.BoilerStationAutoCmdGroup;
 import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
 import org.usfirst.frc.team6201.robot.subsystems.DataLoggerFetcher;
@@ -121,7 +122,7 @@ public class Robot extends IterativeRobot {
 			autonomousCommand = new BoilerStationAutoCmdGroup();
 			break;
 		case "L" :
-			DriverStation.reportError("NEED TO WRITE LoaderStationAuto!!!!!!!!!!!!!!!!", false);
+			autonomousCommand = new LoaderStationAutoCmdGroup();
 			break;
 		case "C" :
 			autonomousCommand = new CenterStationAutoCmdGroup();

@@ -71,17 +71,20 @@ public class OI {
 
 	public OI() {
 		//starts the process of climbing the rope
-		Button b1 = new JoystickButton(logitech, 1);
-		b1.whileHeld(new ClimbRopeCmd());
+		Button b7 = new JoystickButton(logitech, 7);
+		b7.whileHeld(new ClimbRopeCmd());
 		
 		//stops the rope climber
 		//might want to be whenPressed instead
 		Button b2 = new JoystickButton(logitech, 2);
 		b2.whileHeld(new StopClimbingCmd());
 		
+		Button b1 = new JoystickButton(logitech, 1);
+		b1.whileHeld(new StopClimbingCmd());
+		
 		//starts the process of unwinding the rope
-		Button b3 = new JoystickButton(logitech, 3);
-		b3.whileHeld(new DescendRopeCmd());
+		Button b8 = new JoystickButton(logitech, 8);
+		b8.whileHeld(new DescendRopeCmd());
 		
 		
 		//Climbs rope when GREEN button on control board is held down

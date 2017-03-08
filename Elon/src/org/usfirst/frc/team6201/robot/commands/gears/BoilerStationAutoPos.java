@@ -67,7 +67,7 @@ public class BoilerStationAutoPos extends Command {
 	 */
 	protected void execute() {
 
-		DataCollator.state.setVal("LeftAutoPosRobotGearDeliveryCmdExe");
+		DataCollator.state.setVal("BoilerAutoPosRobotGearDeliveryCmdExe");
 
 		target = GearVisionCollator.getTarget();
 		if(phaseOne) {
@@ -167,7 +167,7 @@ public class BoilerStationAutoPos extends Command {
 	protected void end() {
 		phaseOne = true;
 		Robot.dt.driveLR(0, 0);
-		DriverStation.reportWarning("Ending LeftAutoRobotGearDelivery", false);
+		DriverStation.reportWarning("Ending BoilerAutoRobotGearDelivery", false);
 	}
 
 	// Called when another command which requires one or more of the same
