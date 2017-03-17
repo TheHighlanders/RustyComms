@@ -113,12 +113,12 @@ public class ArcadeDriveCmd extends Command {
 
 		// use mapping function and the joystick slider as a gain
 		// to get a desired turn amount and a desired forward motion speed
-		tanTurn = scaledValTan(joystickX * joystickSlider * 0.95, TANDOMAIN_X);
+		tanTurn = scaledValTan(joystickX * joystickSlider, TANDOMAIN_X);
 		tanPower = scaledValTan(joystickY * joystickSlider, TANDOMAIN_Y);
 
 		// calculate actual ability of robot by reserving 5% of motor speed for
 		// turning at all times
-		processedPower = tanPower;
+		processedPower = tanPower * 0.90;
 
 		// Combine the desired turn rate with how much the motors are not using.
 		processedTurn = (1 - Math.abs(processedPower)) * tanTurn;

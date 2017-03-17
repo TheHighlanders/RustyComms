@@ -31,8 +31,7 @@ public class RopeClimber extends Subsystem {
 	 * Unspools at half power
 	 */
 	public void fall() {
-		m1.set(-0.5);
-		m2.set(-0.5);
+		m1.set(-1);
 
 	}
 

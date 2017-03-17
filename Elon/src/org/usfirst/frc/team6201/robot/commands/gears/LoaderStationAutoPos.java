@@ -6,6 +6,7 @@ import org.usfirst.frc.team6201.robot.gearVision.GearVisionCollator;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Drives the robot towards the peg for the remainder of the gear delivery
@@ -75,7 +76,7 @@ public class LoaderStationAutoPos extends Command {
 				Robot.dt.driveLR(0.3,0.3);
 				DriverStation.reportError("LOST TARGET PHASE 1", false);
 			}
-			else if (target[0] < 0.74 && target[0]>0.26){
+			else if (target[0] < SmartDashboard.getNumber("LoaderAutoTargetHighThresh", 0.74) && target[0]>SmartDashboard.getNumber("LoaderAutoTargetLowThresh", 0.26)){
 				DriverStation.reportError("StageOne xPos: " + target[0], false);
 
 				Robot.dt.driveLR(0.3,0.3);

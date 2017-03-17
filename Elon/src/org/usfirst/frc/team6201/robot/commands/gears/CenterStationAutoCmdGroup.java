@@ -22,7 +22,7 @@ public class CenterStationAutoCmdGroup extends CommandGroup {
     	
     	
         addSequential(new CenterStationAutoPos());
-    	addSequential(new DriveTimeCmd(1.5,0.2));
+   	addSequential(new DriveTimeCmd(5,0.2));
         
     }
 }

@@ -17,7 +17,7 @@ public class BoilerStationAutoCmdGroup extends CommandGroup {
     public BoilerStationAutoCmdGroup() {
     	
     	addSequential(new BoilerStationAutoPos());
-    	addSequential(new DriveTimeCmd(10,0.15));
+    	addSequential(new DriveTimeCmd(10,0.2));
     	
     }
 }
