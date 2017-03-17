@@ -12,12 +12,12 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * @author Adriana Massie
  *
  */
-public class BoilerStationAutoCmdGroup extends CommandGroup {
+public class LoaderStationAutoCmdGroup extends CommandGroup {
 
-    public BoilerStationAutoCmdGroup() {
+    public LoaderStationAutoCmdGroup() {
     	
-    	addSequential(new BoilerStationAutoPos());
-    	addSequential(new DriveTimeCmd(10,0.2));
+    	addSequential(new LoaderStationAutoPos());
+    	addSequential(new DriveTimeCmd(2,0.15));
     	
     }
 }
