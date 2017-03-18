@@ -88,8 +88,8 @@ public class Robot extends IterativeRobot {
 	public void disabledInit() {
 		DataCollator.state.setVal("RobotDisabledInit");
 		SmartDashboard.putNumber("Turning Tuning", Robot.gva.getTuning());
-		SmartDashboard.putNumber("LoaderAutoTargetLowThresh",  0.26);
-		SmartDashboard.putNumber("LoaderAutoTargetHighThresh", 0.74);
+		SmartDashboard.putNumber("LoaderAutoTargetLowThresh",  0.05);
+		SmartDashboard.putNumber("LoaderAutoTargetHighThresh", 0.95);
 	}
 
 	/**

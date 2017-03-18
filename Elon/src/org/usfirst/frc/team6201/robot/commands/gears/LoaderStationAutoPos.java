@@ -73,10 +73,10 @@ public class LoaderStationAutoPos extends Command {
 		target = GearVisionCollator.getTarget();
 		if(phaseOne) {
 			if (target == null){
-				Robot.dt.driveLR(0.3,0.3);
+				Robot.dt.driveLR(0.6,0.6);
 				DriverStation.reportError("LOST TARGET PHASE 1", false);
 			}
-			else if (target[0] < SmartDashboard.getNumber("LoaderAutoTargetHighThresh", 0.74) && target[0]>SmartDashboard.getNumber("LoaderAutoTargetLowThresh", 0.26)){
+			else if (target[0] < SmartDashboard.getNumber("LoaderAutoTargetHighThresh", 0.95) && target[0]>SmartDashboard.getNumber("LoaderAutoTargetLowThresh", 0.05)){
 				DriverStation.reportError("StageOne xPos: " + target[0], false);
 
 				Robot.dt.driveLR(0.3,0.3);
@@ -104,7 +104,7 @@ public class LoaderStationAutoPos extends Command {
 				 * Calculate desired forward speed based on the distance from the peg.
 				 * If farther from the target, drive faster.
 				 */
-				double avgAvailablePower =( Math.pow(target[3] + 0.2, -0.3) - 1.1 )/1.3;
+				double avgAvailablePower =( Math.pow(target[3] + 0.2, -0.3) - 1.1 )/1.1;
 				
 				/**
 				 * Distance the target  is from the center of our frame.
