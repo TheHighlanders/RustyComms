@@ -94,7 +94,7 @@ public class LoaderStationAutoPos extends Command {
 
 				
 				// if we are really close to the peg, stop!
-				if (target[3] >= 0.15 && lastKnownTarget[3] >= 0.15) {
+				if (target[3] >= 0.13 && lastKnownTarget[3] >= 0.13) {
 					DriverStation.reportWarning("StopMe is now true", true);
 					stopMe = true;
 

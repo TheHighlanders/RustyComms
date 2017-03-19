@@ -17,7 +17,7 @@ public class LoaderStationAutoCmdGroup extends CommandGroup {
     public LoaderStationAutoCmdGroup() {
     	
     	addSequential(new LoaderStationAutoPos());
-    	addSequential(new DriveTimeCmd(2,0.15));
+    	addSequential(new DriveTimeCmd(2,0.2));
     	
     }
 }
