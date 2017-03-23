@@ -28,7 +28,9 @@ public class OI {
 	 * Initialized with the USB devices plugged into the robot
 	 */
 	private Joystick logitech = new Joystick(RobotMap.LOGITECH);
-	private Joystick controlBoard = new Joystick(RobotMap.CONTROLBOARD);
+	//private Joystick controlBoard = new Joystick(RobotMap.CONTROLBOARD);
+	
+	private Button b1 = new JoystickButton(logitech, 1);
 	
 	/**
 	 * @return  a double corresponding to how much the joystick's handle is rotated.
@@ -66,6 +68,15 @@ public class OI {
 	public double getSliderAxisOfArcade() {
 		
 		return logitech.getRawAxis(RobotMap.LOGITECH_SLIDER_AXIS);
+		
+	}
+	
+	/**
+	 * @return True if button 1 is pressed, false otherwise.
+	 */
+	public boolean getButton1() {
+		
+		return b1.get();
 		
 	}
 

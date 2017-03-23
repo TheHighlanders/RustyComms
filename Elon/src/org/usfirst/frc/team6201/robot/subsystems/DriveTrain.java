@@ -153,4 +153,24 @@ public class DriveTrain extends Subsystem {
 		return gyro.getAngle();
 
 	}
+	
+	public void turboBoostEnable() {
+		
+		right1.setVoltageRampRate(60);
+		right2.setVoltageRampRate(60);
+		left1.setVoltageRampRate(60);
+		left2.setVoltageRampRate(60);
+		
+		
+	}
+	
+	public void turboBoostDisable() {
+		
+		right1.setVoltageRampRate(36);
+		right2.setVoltageRampRate(36);
+		left1.setVoltageRampRate(36);
+		left2.setVoltageRampRate(36);
+		
+		
+	}
 }

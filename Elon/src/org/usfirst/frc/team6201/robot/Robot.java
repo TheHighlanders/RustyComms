@@ -76,6 +76,7 @@ public class Robot extends IterativeRobot {
 		DataCollator.state.setVal("RobotInit");
 
 		SmartDashboard.putString("Auto", "");
+		SmartDashboard.putNumber("TurboSpeed", 0.95);
 
 	}
 

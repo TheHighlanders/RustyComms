@@ -7,6 +7,7 @@ import org.usfirst.frc.team6201.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * NEEDS TO BE REWRITTEN!!! This command interfaces between the Operator
@@ -118,7 +119,13 @@ public class ArcadeDriveCmd extends Command {
 
 		// calculate actual ability of robot by reserving 5% of motor speed for
 		// turning at all times
-		processedPower = tanPower * 0.90;
+		if(Robot.oi.getButton1()) {
+			processedPower = tanPower * SmartDashboard.getNumber("TurboSpeed", 0.95);
+			Robot.dt.turboBoostEnable();
+		} else {
+			processedPower = tanPower * 0.90;
+			Robot.dt.turboBoostDisable();
+		}
 
 		// Combine the desired turn rate with how much the motors are not using.
 		processedTurn = (1 - Math.abs(processedPower)) * tanTurn;
