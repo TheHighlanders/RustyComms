@@ -156,10 +156,10 @@ public class DriveTrain extends Subsystem {
 	
 	public void turboBoostEnable() {
 		
-		right1.setVoltageRampRate(60);
-		right2.setVoltageRampRate(60);
-		left1.setVoltageRampRate(60);
-		left2.setVoltageRampRate(60);
+		right1.setVoltageRampRate(55);
+		right2.setVoltageRampRate(55);
+		left1.setVoltageRampRate(55);
+		left2.setVoltageRampRate(55);
 		
 		
 	}

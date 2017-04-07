@@ -89,6 +89,7 @@ public class DataLoggerPublisherThread extends Thread {
 	 */
 	private void sendData(String s) {
 		try {
+			System.out.println(s);
 			buffer = s.getBytes();
 			DatagramPacket outPacket = new DatagramPacket(buffer, buffer.length, destaddress, RobotMap.LOGGING_UDP_PORT);
 			outSocket.send(outPacket);

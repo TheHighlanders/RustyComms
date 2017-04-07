@@ -139,13 +139,12 @@ public class LoaderStationAutoPos extends Command {
 				// if we loose tracking of the peg, but the robot is close, drive
 				// forward.
 				if (stopMe != true) {
-					
-					if (lastKnownTarget[0] > 0.5) {
-						Robot.dt.driveLR(0.15, -0.2);
+					phaseOne = false;
+					if (lastKnownTarget[0] < 0.5){
+						Robot.dt.driveLR(-0.3, 0.3);
 					}
-
 					else {
-						Robot.dt.driveLR(-0.2, 0.15);
+						Robot.dt.driveLR(-0.3, 0.3);
 					}
 
 				}

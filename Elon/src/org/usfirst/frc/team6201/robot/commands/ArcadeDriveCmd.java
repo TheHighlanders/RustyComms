@@ -112,17 +112,23 @@ public class ArcadeDriveCmd extends Command {
 		double joystickY = Robot.oi.getYAxisOfArcade();
 		double joystickSlider = 0.5 * (1 + (-1 * Robot.oi.getSliderAxisOfArcade()));
 
-		// use mapping function and the joystick slider as a gain
-		// to get a desired turn amount and a desired forward motion speed
-		tanTurn = scaledValTan(joystickX * joystickSlider, TANDOMAIN_X);
-		tanPower = scaledValTan(joystickY * joystickSlider, TANDOMAIN_Y);
-
+	
 		// calculate actual ability of robot by reserving 5% of motor speed for
 		// turning at all times
 		if(Robot.oi.getButton1()) {
+			// use mapping function and the joystick slider as a gain
+			// to get a desired turn amount and a desired forward motion speed
+			tanTurn = scaledValTan(joystickX , TANDOMAIN_X);
+			tanPower = scaledValTan(joystickY , TANDOMAIN_Y);
+
 			processedPower = tanPower * SmartDashboard.getNumber("TurboSpeed", 0.95);
 			Robot.dt.turboBoostEnable();
 		} else {
+			// use mapping function and the joystick slider as a gain
+			// to get a desired turn amount and a desired forward motion speed
+			tanTurn = scaledValTan(joystickX * joystickSlider, TANDOMAIN_X);
+			tanPower = scaledValTan(joystickY * joystickSlider, TANDOMAIN_Y);
+
 			processedPower = tanPower * 0.90;
 			Robot.dt.turboBoostDisable();
 		}
