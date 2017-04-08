@@ -14,6 +14,8 @@ import java.net.*;
 
 import org.usfirst.frc.team6201.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.DriverStation;
+
 public class DataLoggerPublisherThread extends Thread {
 
 	private DatagramSocket outSocket = null;
@@ -56,6 +58,7 @@ public class DataLoggerPublisherThread extends Thread {
 	 * Gracefully shuts down logger, sending a message to the UDP receivers that logging is ending.
 	 */
 	public void stopLoggingRecorder() {
+		DriverStation.reportError("DataLoggerPublisherThread().stopLoggingRecorder()", false);
 		sendData(getStopMessage());
 	}
 	
@@ -63,8 +66,9 @@ public class DataLoggerPublisherThread extends Thread {
 	 * Stops the logger publisher after sending a message to the recorders to gracefully end logging.
 	 */
 	public void endAllLogging() {
+		DriverStation.reportError("DataLoggerPublisherThread().endAllLogging()", false);
 		stopLoggingRecorder();
-		toLog = false;
+		//toLog = false;
 	}
 	
 
@@ -73,6 +77,7 @@ public class DataLoggerPublisherThread extends Thread {
 	 * This method occasionally sends a header row so that a receiver can make a new file if desired.
 	 */
 	public void run() {
+		DriverStation.reportError("DataLoggerPublisherThread().run()" + toLog, false);
 		while (toLog) {
 			if (sequenceNumb % 100 == 0) {
 				sendData(getHeader());
@@ -89,7 +94,6 @@ public class DataLoggerPublisherThread extends Thread {
 	 */
 	private void sendData(String s) {
 		try {
-			System.out.println(s);
 			buffer = s.getBytes();
 			DatagramPacket outPacket = new DatagramPacket(buffer, buffer.length, destaddress, RobotMap.LOGGING_UDP_PORT);
 			outSocket.send(outPacket);

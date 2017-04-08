@@ -50,6 +50,7 @@ public class DataLoggerFetcher extends Subsystem {
 		try {
 			loggerPublisherThread = new DataLoggerPublisherThread();
 			loggerPublisherThread.start();
+			DriverStation.reportError("DataLoggerPublisherThread().start(); succeeded", false);
 		}
 		catch (IOException e) {
 			//TODO: Look up how to send this message to the Driverstation, should be one line.
