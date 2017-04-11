@@ -2,21 +2,25 @@
 package org.usfirst.frc.team6201.robot;
 
 import org.usfirst.frc.team6201.robot.commands.DoNothingAuto;
+import org.usfirst.frc.team6201.robot.commands.gears.BoilerStationAutoCmdGroup;
 import org.usfirst.frc.team6201.robot.commands.gears.CenterStationAutoCmdGroup;
 import org.usfirst.frc.team6201.robot.commands.gears.LoaderStationAutoCmdGroup;
-import org.usfirst.frc.team6201.robot.commands.gears.BoilerStationAutoCmdGroup;
+import org.usfirst.frc.team6201.robot.commands.rgb.AutoRGB;
+import org.usfirst.frc.team6201.robot.commands.rgb.Final30RGB;
+import org.usfirst.frc.team6201.robot.commands.rgb.TeleOpRGB;
 import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
 import org.usfirst.frc.team6201.robot.subsystems.DataLoggerFetcher;
 import org.usfirst.frc.team6201.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6201.robot.subsystems.GearVisionAuto;
+import org.usfirst.frc.team6201.robot.subsystems.RobotRGB;
 import org.usfirst.frc.team6201.robot.subsystems.RopeClimber;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -28,6 +32,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
+	/**
+	 * Creates a RobotRGB subsystem object which enables colour changing for robot LEDs.
+	 */
+	public static final RobotRGB rgb = new RobotRGB();
+	
 	/**
 	 * Creates a DriveTrain subsystem object which enables moving the robot
 	 * around.
@@ -63,6 +72,8 @@ public class Robot extends IterativeRobot {
 	// section of the match.
 	// See robotInit() for how this is set.
 	Command autonomousCommand;
+	
+	private Command rgbCommand;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -77,7 +88,7 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putString("Auto", "");
 		SmartDashboard.putNumber("TurboSpeed", 0.95);
-
+		
 	}
 
 	/**
@@ -139,6 +150,10 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
 		}
+		
+		rgbCommand = new AutoRGB();
+		rgbCommand.start();
+		
 	}
 
 	/**
@@ -162,8 +177,14 @@ public class Robot extends IterativeRobot {
 			dlf.setStopOnNextDisable(true);
 		}
 
-		if (autonomousCommand != null)
+		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
+		}
+		
+		rgbCommand.cancel();
+		rgbCommand = new TeleOpRGB();
+		rgbCommand.start();
+		
 	}
 
 	/**
@@ -173,6 +194,14 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		DataCollator.state.setVal("RobotTeleopPeriodic");
 		Scheduler.getInstance().run();
+		
+		if(Timer.getMatchTime() > 120) {
+			
+			rgbCommand.cancel();
+			rgbCommand = new Final30RGB();
+			rgbCommand.start();
+			
+		}
 	}
 
 	/**
