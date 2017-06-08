@@ -3,6 +3,7 @@ package org.usfirst.frc.team6201.robot;
 
 import org.usfirst.frc.team6201.robot.commands.ClimbRopeCmd;
 import org.usfirst.frc.team6201.robot.commands.DescendRopeCmd;
+import org.usfirst.frc.team6201.robot.commands.DriveFwdTurn180;
 import org.usfirst.frc.team6201.robot.commands.DriveTimeCmd;
 import org.usfirst.frc.team6201.robot.commands.StopClimbingCmd;
 import org.usfirst.frc.team6201.robot.commands.TurnAngleCmd;
@@ -96,6 +97,9 @@ public class OI {
 		//starts the process of unwinding the rope
 		Button b8 = new JoystickButton(logitech, 8);
 		b8.whileHeld(new DescendRopeCmd());
+		
+		Button b12 = new JoystickButton(logitech, 12);
+		b12.whenPressed(new DriveFwdTurn180());
 		
 		
 		//Climbs rope when GREEN button on control board is held down
