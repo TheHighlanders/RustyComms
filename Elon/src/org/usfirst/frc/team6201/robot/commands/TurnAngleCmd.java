@@ -29,16 +29,30 @@ public class TurnAngleCmd extends Command {
 	 * targetRotation is how far we want to turn the robot from the initial conditions 
 	 */
 	private double targetRotation;
-	
+	/**
+	 * currentAngle is the current angle the robot is at
+	 */
 	private double currentAngle;
-	
+	/**
+	 * initialAngle the initial angle the robot starts at
+	 */
 	private double initialAngle;
-	
+	/**
+	 * absoluteTargetAngle is the angle that the robot will be at after turning
+	 * initialAngle + targetRotation = absoluteTargetAngle
+	 */
 	private double absoluteTargetAngle;
+	/**
+	 * Checks if the robot is done turning
+	 */
+	private double[] turnSpeedSlowing = {0.25, 0.5, 0.75, 1};
 	
 	private boolean isFinished = false;
-	
+	/**
+	 * Checks if you still need to run initialize()
+	 */
 	private boolean runInitialize = true;
+	
 	
 	public TurnAngleCmd(double targetRotation) {
 		
@@ -76,7 +90,25 @@ public class TurnAngleCmd extends Command {
 			
 		} else {
 			
-			Robot.dt.driveLR(turnSpeed, -turnSpeed);
+			for(int i = 0; i <= targetRotation; i++) {
+				
+				
+				
+//				if(i > (targetRotation / 2)) {
+//					
+//					Robot.dt.driveLR(turnSpeed, -turnSpeed);
+//					
+//				} else if(i <= (targetRotation / 2)) {
+//					
+//					Robot.dt.driveLR(turnSpeed * 3/4, -turnSpeed * 3/4);
+//					
+//				} else if(i <= ((targetRotation / 2) * 2/3)) {
+//					
+//					Robot.dt.driveLR(turnSpeed * 2/3, -turnSpeed * 2/3);
+//					
+//				}
+				
+			}
 			
 		}
 		
