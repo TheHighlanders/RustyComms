@@ -47,6 +47,9 @@ public class TurnAngleCmd extends Command {
 	 */
 	private double[] turnSpeedSlowing = {0.25, 0.5, 0.75, 1};
 	
+	private double lowSpeed = turnSpeedSlowing[(int) Math.floor(targetRotation)];
+	private double highSpeed = turnSpeedSlowing[(int) Math.ceil(targetRotation)];
+	
 	private boolean isFinished = false;
 	/**
 	 * Checks if you still need to run initialize()
@@ -90,23 +93,9 @@ public class TurnAngleCmd extends Command {
 			
 		} else {
 			
-			for(int i = 0; i <= targetRotation; i++) {
+			for(int i = 0; i < targetRotation; i++) {
 				
-				
-				
-//				if(i > (targetRotation / 2)) {
-//					
-//					Robot.dt.driveLR(turnSpeed, -turnSpeed);
-//					
-//				} else if(i <= (targetRotation / 2)) {
-//					
-//					Robot.dt.driveLR(turnSpeed * 3/4, -turnSpeed * 3/4);
-//					
-//				} else if(i <= ((targetRotation / 2) * 2/3)) {
-//					
-//					Robot.dt.driveLR(turnSpeed * 2/3, -turnSpeed * 2/3);
-//					
-//				}
+				turnSpeed = lowSpeed + (highSpeed - lowSpeed) * (targetRotation - Math.floor(targetRotation));
 				
 			}
 			
