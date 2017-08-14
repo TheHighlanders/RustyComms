@@ -4,6 +4,7 @@ package org.usfirst.frc.team6201.robot;
 import org.usfirst.frc.team6201.robot.commands.ClimbRopeCmd;
 import org.usfirst.frc.team6201.robot.commands.DescendRopeCmd;
 import org.usfirst.frc.team6201.robot.commands.DriveTimeCmd;
+import org.usfirst.frc.team6201.robot.commands.SolenoidStuff;
 import org.usfirst.frc.team6201.robot.commands.StopClimbingCmd;
 import org.usfirst.frc.team6201.robot.commands.TurnAngleCmd;
 import org.usfirst.frc.team6201.robot.commands.gears.CenterStationAutoPos;
@@ -28,7 +29,7 @@ public class OI {
 	 * Initialized with the USB devices plugged into the robot
 	 */
 	private Joystick logitech = new Joystick(RobotMap.LOGITECH);
-	//private Joystick controlBoard = new Joystick(RobotMap.CONTROLBOARD);
+	private Joystick controlBoard = new Joystick(RobotMap.CONTROLBOARD);
 	
 	private Button b1 = new JoystickButton(logitech, 1);
 	
@@ -97,7 +98,14 @@ public class OI {
 		Button b8 = new JoystickButton(logitech, 8);
 		b8.whileHeld(new DescendRopeCmd());
 		
+		Button bc8 = new JoystickButton(controlBoard, 8);
+		b8.whenPressed(new SolenoidStuff(1, Robot.pn.solenoid0));
 		
+		Button bc4 = new JoystickButton(controlBoard, 4);
+		bc4.whenPressed(new SolenoidStuff(1, Robot.pn.solenoid1));
+		
+		Button bc5 = new JoystickButton(controlBoard, 5);
+		bc5.whenPressed(new SolenoidStuff(1, Robot.pn.solenoid2));
 		//Climbs rope when GREEN button on control board is held down
 //		Button controlClimb = new JoystickButton(controlBoard, 8);
 	//	controlClimb.whileHeld(new ClimbRopeCmd());
