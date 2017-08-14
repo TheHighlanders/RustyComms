@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * NEEDS TO BE REWRITTEN!!! This command interfaces between the Operator
+ * This command interfaces between the Operator
  * Interface object (Robot.oi) and the DriveTrain object (Robot.dt) to provide
  * smooth intuitive joystick control with fine control at slow speeds, while
  * still being able to reach full speed. Recently added support for a third axis
@@ -23,6 +23,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 
 public class ArcadeDriveCmd extends Command {
+	
+	/**
+	 * Absolute value of the maximum voltage applied to motor (max speed robot will drive at)
+	 * FOR COMP: maxSpeed = 1
+	 * FOR OUTREACH/EVENTS: maxSpeed = 0.5
+	 */
+	private final double MAX_SPEED = 0.5;
 
 	/**
 	 * Calibrated turning amount by throwing the X axis of the joystick through
@@ -126,8 +133,8 @@ public class ArcadeDriveCmd extends Command {
 		} else {
 			// use mapping function and the joystick slider as a gain
 			// to get a desired turn amount and a desired forward motion speed
-			tanTurn = scaledValTan(joystickX * joystickSlider, TANDOMAIN_X);
-			tanPower = scaledValTan(joystickY * joystickSlider, TANDOMAIN_Y);
+			tanTurn = scaledValTan(joystickX * joystickSlider * MAX_SPEED, TANDOMAIN_X);
+			tanPower = scaledValTan(joystickY * joystickSlider * MAX_SPEED, TANDOMAIN_Y);
 
 			processedPower = tanPower * 0.90;
 			Robot.dt.turboBoostDisable();
