@@ -22,10 +22,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TurnAngleCmd extends Command {
 	
 	/**
-	 * turnSpeed is the speed that the robot turns at depends on currentAngleOffset 
-	 */
-	private double turnSpeed;
-	/**
 	 * targetRotation is how far we want to turn the robot from the initial conditions 
 	 */
 	private double targetRotation;
@@ -45,6 +41,8 @@ public class TurnAngleCmd extends Command {
 	/**
 	 * Checks if the robot is done turning
 	 */
+	private double slope;
+	
 	private double[] turnSpeedSlowing = {0.25, 0.5, 0.75, 1};
 	
 	private double lowSpeed = turnSpeedSlowing[(int) Math.floor(targetRotation)];
@@ -60,7 +58,7 @@ public class TurnAngleCmd extends Command {
 	public TurnAngleCmd(double targetRotation) {
 		
 		this.targetRotation = targetRotation;
-		this.turnSpeed = SmartDashboard.getNumber("Turning Speed", 0.5);
+		this.slope = 1/SmartDashboard.getNumber("Turning Speed", 180);
 		
 	}
 	
@@ -87,15 +85,25 @@ public class TurnAngleCmd extends Command {
 		
 		this.currentAngle = Robot.dt.getGyroAngle();
 		
-		if(absoluteTargetAngle <= currentAngle) {
+		double angleOffset = absoluteTargetAngle - currentAngle;
+		
+		if(Math.abs(angleOffset) < 10 && Math.abs(Robot.dt.getGyroRate()) < 10) {
 			
 			isFinished = true;
-			
+						
 		} else {
 			
-			for(int i = 0; i < targetRotation; i++) {
+			angleOffset = angleOffset % 360;
+			
+			if(angleOffset > 180) {
 				
-				turnSpeed = lowSpeed + (highSpeed - lowSpeed) * (targetRotation - Math.floor(targetRotation));
+				double turnSpeed = slope * angleOffset - 1;
+				Robot.dt.driveLR(-turnSpeed, turnSpeed);
+				
+			} else {
+				
+				double turnSpeed = slope * angleOffset;
+				Robot.dt.driveLR(turnSpeed, -turnSpeed);		
 				
 			}
 			
