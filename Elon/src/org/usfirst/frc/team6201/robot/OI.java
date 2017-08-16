@@ -98,17 +98,19 @@ public class OI {
 		Button b8 = new JoystickButton(logitech, 8);
 		b8.whileHeld(new DescendRopeCmd());
 		
+		//using bc# intean of b# when using the control board as an input.
+		//controls solenoid 0
 		Button bc8 = new JoystickButton(controlBoard, 8);
-		b8.whenPressed(new SolenoidStuff(1, Robot.pn.solenoid0));
-		
+		bc8.whenPressed(new SolenoidStuff(1, Robot.pn.solenoid0));
+		//controls solenoid 1
 		Button bc4 = new JoystickButton(controlBoard, 4);
 		bc4.whenPressed(new SolenoidStuff(1, Robot.pn.solenoid1));
-		
+		//controls solenoid 2
 		Button bc5 = new JoystickButton(controlBoard, 5);
 		bc5.whenPressed(new SolenoidStuff(1, Robot.pn.solenoid2));
 		//Climbs rope when GREEN button on control board is held down
-//		Button controlClimb = new JoystickButton(controlBoard, 8);
-	//	controlClimb.whileHeld(new ClimbRopeCmd());
+		//Button controlClimb = new JoystickButton(controlBoard, 8);
+		//controlClimb.whileHeld(new ClimbRopeCmd());
 		
 	}
 	

@@ -20,6 +20,7 @@ public class RobotMap {
 	public static final int LOGITECH_SLIDER_AXIS = 3;
 	
 	// Control Board
+	//Expects control board to be in position 0 in the driver station.
 	public static final int CONTROLBOARD = 0;
 
 	// Drive Train
