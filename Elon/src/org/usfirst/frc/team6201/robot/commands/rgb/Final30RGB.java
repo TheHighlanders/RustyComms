@@ -15,9 +15,9 @@ public class Final30RGB extends Command {
 	
     public Final30RGB() {
         
-    	rgb = Robot.rgb;
+    //	rgb = Robot.rgb;
     	
-    	requires(rgb);
+    	//requires(rgb);
     	
     }
     

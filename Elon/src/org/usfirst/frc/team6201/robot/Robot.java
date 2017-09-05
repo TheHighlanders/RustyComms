@@ -5,14 +5,15 @@ import org.usfirst.frc.team6201.robot.commands.DoNothingAuto;
 import org.usfirst.frc.team6201.robot.commands.gears.BoilerStationAutoCmdGroup;
 import org.usfirst.frc.team6201.robot.commands.gears.CenterStationAutoCmdGroup;
 import org.usfirst.frc.team6201.robot.commands.gears.LoaderStationAutoCmdGroup;
-import org.usfirst.frc.team6201.robot.commands.rgb.AutoRGB;
-import org.usfirst.frc.team6201.robot.commands.rgb.Final30RGB;
-import org.usfirst.frc.team6201.robot.commands.rgb.TeleOpRGB;
+//import org.usfirst.frc.team6201.robot.commands.rgb.AutoRGB;
+//import org.usfirst.frc.team6201.robot.commands.rgb.Final30RGB;
+//import org.usfirst.frc.team6201.robot.commands.rgb.TeleOpRGB;
 import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
 import org.usfirst.frc.team6201.robot.subsystems.DataLoggerFetcher;
 import org.usfirst.frc.team6201.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6201.robot.subsystems.GearVisionAuto;
-import org.usfirst.frc.team6201.robot.subsystems.RobotRGB;
+import org.usfirst.frc.team6201.robot.subsystems.Pneumatics;
+//import org.usfirst.frc.team6201.robot.subsystems.RobotRGB;
 import org.usfirst.frc.team6201.robot.subsystems.RopeClimber;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -35,7 +36,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * Creates a RobotRGB subsystem object which enables colour changing for robot LEDs.
 	 */
-	public static final RobotRGB rgb = new RobotRGB();
+	//public static final RobotRGB rgb = new RobotRGB();
 	
 	/**
 	 * Creates a DriveTrain subsystem object which enables moving the robot
@@ -43,6 +44,8 @@ public class Robot extends IterativeRobot {
 	 */
 	public static final DriveTrain dt = new DriveTrain();
 
+	
+	public static final Pneumatics pn = new Pneumatics();
 	/**
 	 * Creates a DataLoggerFetcher subsystem object which starts the logging
 	 * publisher thread for the Data Logger.
@@ -73,7 +76,7 @@ public class Robot extends IterativeRobot {
 	// See robotInit() for how this is set.
 	Command autonomousCommand;
 	
-	private Command rgbCommand;
+	//private Command rgbCommand;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -151,8 +154,8 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.start();
 		}
 		
-		rgbCommand = new AutoRGB();
-		rgbCommand.start();
+		//rgbCommand = new AutoRGB();
+		//rgbCommand.start();
 		
 	}
 
@@ -181,9 +184,9 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 		}
 		
-		rgbCommand.cancel();
-		rgbCommand = new TeleOpRGB();
-		rgbCommand.start();
+		//rgbCommand.cancel();
+		//rgbCommand = new TeleOpRGB();
+		//rgbCommand.start();
 		
 	}
 
@@ -197,9 +200,9 @@ public class Robot extends IterativeRobot {
 		
 		if(Timer.getMatchTime() > 120) {
 			
-			rgbCommand.cancel();
-			rgbCommand = new Final30RGB();
-			rgbCommand.start();
+			//rgbCommand.cancel();
+			//rgbCommand = new Final30RGB();
+			//rgbCommand.start();
 			
 		}
 	}

@@ -16,9 +16,9 @@ public class AutoRGB extends Command {
 	
     public AutoRGB() {
     	
-    	rgb = Robot.rgb;
+    	//rgb = Robot.rgb;s
     	
-    	requires(rgb);
+   //s 	requires(rgb);
     	
     }
 

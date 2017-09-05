@@ -17,9 +17,9 @@ public class TeleOpRGB extends Command {
 	
     public TeleOpRGB() {
 
-    	rgb = Robot.rgb;
+    	//rgb = Robot.rgb;
     	
-    	requires(rgb);
+    	//requires(rgb);
     
     }
 
