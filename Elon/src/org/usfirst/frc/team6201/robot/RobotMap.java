@@ -12,6 +12,8 @@ package org.usfirst.frc.team6201.robot;
  */
 public class RobotMap {
 
+	//edit
+	
 	// Joystick
 	public static final int LOGITECH = 1;
 	public static final int LOGITECH_X_AXIS = 0;
