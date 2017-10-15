@@ -27,7 +27,8 @@ public class Pneumatics extends Subsystem {
 		//disables closed loop control
 		c.setClosedLoopControl(false);
 		
-		solenoid0 = new Solenoid(0);
+		//port 0 might be broken; trying port 2
+		solenoid0 = new Solenoid(3);
 		solenoid1 = new Solenoid(1);
 		solenoid2 = new Solenoid(2);
 		

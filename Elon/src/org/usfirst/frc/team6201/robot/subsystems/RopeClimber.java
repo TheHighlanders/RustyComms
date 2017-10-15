@@ -1,5 +1,6 @@
 package org.usfirst.frc.team6201.robot.subsystems;
 
+import org.usfirst.frc.team6201.robot.Robot;
 import org.usfirst.frc.team6201.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.VictorSP;
@@ -24,22 +25,28 @@ public class RopeClimber extends Subsystem {
 	 * Sets motors to full power
 	 */
 	public void climb() {
-		m1.set(1);
+		if(!Robot.buttonDisable) {
+			m1.set(1);
+		}
 	}
 
 	/**
 	 * Unspools at half power
 	 */
 	public void fall() {
-		m1.set(-1);
-
+		if(!Robot.buttonDisable) { 
+			m1.set(-1);
+		}
 	}
 
 	/**
 	 *  Stops motors, generally when the robot has reached the touchpad
 	 */
 	public void stop() {
-		m1.set(0);
-		m2.set(0);
+		if(!Robot.buttonDisable) {
+			m1.set(0);
+			m2.set(0);
+
+		}
 	}
 }

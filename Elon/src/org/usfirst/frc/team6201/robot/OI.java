@@ -3,11 +3,10 @@ package org.usfirst.frc.team6201.robot;
 
 import org.usfirst.frc.team6201.robot.commands.ClimbRopeCmd;
 import org.usfirst.frc.team6201.robot.commands.DescendRopeCmd;
-import org.usfirst.frc.team6201.robot.commands.DriveTimeCmd;
+import org.usfirst.frc.team6201.robot.commands.RobotDisableCmd;
+import org.usfirst.frc.team6201.robot.commands.RobotEnableCmd;
 import org.usfirst.frc.team6201.robot.commands.SolenoidStuff;
 import org.usfirst.frc.team6201.robot.commands.StopClimbingCmd;
-import org.usfirst.frc.team6201.robot.commands.TurnAngleCmd;
-import org.usfirst.frc.team6201.robot.commands.gears.CenterStationAutoPos;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -82,36 +81,58 @@ public class OI {
 	}
 
 	public OI() {
+/*		
+		Button robotDisable = new JoystickButton(logitech, 5);
+		robotDisable.whenPressed(new RobotDisableCmd());
+		
+		Button robotEnable = new JoystickButton(logitech, 6);
+		robotEnable.whenPressed(new RobotEnableCmd());
+*/		
+/*		if(!Robot.buttonDisable) {
+			//starts the process of climbing the rope
+			Button b7 = new JoystickButton(logitech, 7);
+			b7.whileHeld(new ClimbRopeCmd());
+		}
+*/			
 		//starts the process of climbing the rope
 		Button b7 = new JoystickButton(logitech, 7);
 		b7.whileHeld(new ClimbRopeCmd());
-		
+	
 		//stops the rope climber
 		//might want to be whenPressed instead
-		Button b2 = new JoystickButton(logitech, 2);
-		b2.whileHeld(new StopClimbingCmd());
-		
-		Button b1 = new JoystickButton(logitech, 1);
-		b1.whileHeld(new StopClimbingCmd());
-		
+		Button b2 = new JoystickButton(logitech, 11);
+		b2.whenPressed(new StopClimbingCmd());
+				
 		//starts the process of unwinding the rope
-		Button b8 = new JoystickButton(logitech, 8);
+		Button b8 = new JoystickButton(logitech, 9);
 		b8.whileHeld(new DescendRopeCmd());
-		
+/*	
+		if(!Robot.buttonDisable) {
+			//using bc# intean of b# when using the control board as an input.
+			
+			//controls solenoid 1
+			Button bc3 = new JoystickButton(logitech, 3);
+			bc3.whenPressed(new SolenoidStuff(1, Robot.pn.solenoid1));
+
+			//controls solenoid 2
+			Button bc4 = new JoystickButton(logitech, 4);
+			bc4.whenPressed(new SolenoidStuff(1, Robot.pn.solenoid2));
+		}	
+*/		
 		//using bc# intean of b# when using the control board as an input.
-		//controls solenoid 0
-		Button bc8 = new JoystickButton(controlBoard, 8);
-		bc8.whenPressed(new SolenoidStuff(1, Robot.pn.solenoid0));
-		//controls solenoid 1
-		Button bc4 = new JoystickButton(controlBoard, 4);
-		bc4.whenPressed(new SolenoidStuff(1, Robot.pn.solenoid1));
-		//controls solenoid 2
-		Button bc5 = new JoystickButton(controlBoard, 5);
-		bc5.whenPressed(new SolenoidStuff(1, Robot.pn.solenoid2));
-		//Climbs rope when GREEN button on control board is held down
-		//Button controlClimb = new JoystickButton(controlBoard, 8);
-		//controlClimb.whileHeld(new ClimbRopeCmd());
 		
+		//controls solenoid 1
+		Button bc3 = new JoystickButton(logitech, 4);
+		bc3.whenPressed(new SolenoidStuff(1, Robot.pn.solenoid1));
+
+		//controls solenoid 2
+		Button bc4 = new JoystickButton(logitech, 3);
+		bc4.whenPressed(new SolenoidStuff(1, Robot.pn.solenoid2));
+		
+			//Climbs rope when GREEN button on control board is held down
+			//Button controlClimb = new JoystickButton(controlBoard, 8);
+			//controlClimb.whileHeld(new ClimbRopeCmd());
+	
 	}
 	
 }

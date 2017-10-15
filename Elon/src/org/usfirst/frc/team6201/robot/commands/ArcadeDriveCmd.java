@@ -129,7 +129,7 @@ public class ArcadeDriveCmd extends Command {
 			tanPower = scaledValTan(joystickY , TANDOMAIN_Y);
 
 			processedPower = tanPower * SmartDashboard.getNumber("TurboSpeed", 0.95);
-			Robot.dt.turboBoostEnable();
+//			Robot.dt.turboBoostEnable();
 		} else {
 			// use mapping function and the joystick slider as a gain
 			// to get a desired turn amount and a desired forward motion speed
@@ -137,7 +137,7 @@ public class ArcadeDriveCmd extends Command {
 			tanPower = scaledValTan(joystickY * joystickSlider * MAX_SPEED, TANDOMAIN_Y);
 
 			processedPower = tanPower * 0.90;
-			Robot.dt.turboBoostDisable();
+//			Robot.dt.turboBoostDisable();
 		}
 
 		// Combine the desired turn rate with how much the motors are not using.

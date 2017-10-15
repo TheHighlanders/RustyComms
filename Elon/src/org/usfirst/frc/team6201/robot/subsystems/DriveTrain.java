@@ -1,5 +1,6 @@
 package org.usfirst.frc.team6201.robot.subsystems;
 
+import org.usfirst.frc.team6201.robot.Robot;
 import org.usfirst.frc.team6201.robot.RobotMap;
 import org.usfirst.frc.team6201.robot.commands.ArcadeDriveCmd;
 import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
@@ -80,8 +81,32 @@ public class DriveTrain extends Subsystem {
 	 * @param rightPower
 	 *            Double speed of right motors. Range -1 to 1
 	 */
+	
 	public void driveLR(double leftPower, double rightPower) {
-
+/*
+		if(Robot.buttonDisable == false) {
+			
+			if (fowardOrReverse == 1) {
+				left1.set(leftPower);
+				left2.set(leftPower);
+				right1.set(rightPower);
+				right2.set(rightPower);	
+				DataCollator.motorSpeedLeft.setVal(leftPower);
+				DataCollator.motorSpeedRight.setVal(rightPower);
+			}
+			
+			else {
+				left1.set(-leftPower);
+				left2.set(-leftPower);
+				right1.set(-rightPower);
+				right2.set(-rightPower);
+				DataCollator.motorSpeedLeft.setVal(-leftPower);
+				DataCollator.motorSpeedRight.setVal(-rightPower);
+			}
+			
+		}
+*/		
+		
 		if (fowardOrReverse == 1) {
 			left1.set(leftPower);
 			left2.set(leftPower);
@@ -99,8 +124,6 @@ public class DriveTrain extends Subsystem {
 			DataCollator.motorSpeedLeft.setVal(-leftPower);
 			DataCollator.motorSpeedRight.setVal(-rightPower);
 		}
-
-		
 
 	}
 
@@ -153,7 +176,7 @@ public class DriveTrain extends Subsystem {
 		return gyro.getAngle();
 
 	}
-	
+/*	
 	public void turboBoostEnable() {
 		
 		right1.setVoltageRampRate(55);
@@ -173,4 +196,5 @@ public class DriveTrain extends Subsystem {
 		
 		
 	}
+*/
 }

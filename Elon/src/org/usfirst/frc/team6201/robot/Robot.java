@@ -37,6 +37,14 @@ public class Robot extends IterativeRobot {
 	 * Creates a RobotRGB subsystem object which enables colour changing for robot LEDs.
 	 */
 	//public static final RobotRGB rgb = new RobotRGB();
+
+	/**
+	 * Boolean for enabling and disabling CERTAIN parts of the robot. Does not completely disable the robot.
+	 * 
+	 * @param False Robot will be "disabled." Functions such as driving, rope climbing, pneumatics, etc. will not be available.
+	 * @param True Robot is "enabled." Everything will function properly and the robot can be driven.
+	 */
+	public static boolean buttonDisable = false;
 	
 	/**
 	 * Creates a DriveTrain subsystem object which enables moving the robot
