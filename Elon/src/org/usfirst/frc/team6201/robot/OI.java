@@ -3,8 +3,6 @@ package org.usfirst.frc.team6201.robot;
 
 import org.usfirst.frc.team6201.robot.commands.ClimbRopeCmd;
 import org.usfirst.frc.team6201.robot.commands.DescendRopeCmd;
-import org.usfirst.frc.team6201.robot.commands.RobotDisableCmd;
-import org.usfirst.frc.team6201.robot.commands.RobotEnableCmd;
 import org.usfirst.frc.team6201.robot.commands.SolenoidStuff;
 import org.usfirst.frc.team6201.robot.commands.StopClimbingCmd;
 
