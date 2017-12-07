@@ -2,9 +2,9 @@
 package org.usfirst.frc.team6201.robot;
 
 import org.usfirst.frc.team6201.robot.commands.DoNothingAuto;
+import org.usfirst.frc.team6201.robot.commands.gears.BoilerStationAutoCmdGroup;
 import org.usfirst.frc.team6201.robot.commands.gears.CenterStationAutoCmdGroup;
 import org.usfirst.frc.team6201.robot.commands.gears.LoaderStationAutoCmdGroup;
-import org.usfirst.frc.team6201.robot.commands.gears.BoilerStationAutoCmdGroup;
 import org.usfirst.frc.team6201.robot.dataLogger.DataCollator;
 import org.usfirst.frc.team6201.robot.subsystems.DataLoggerFetcher;
 import org.usfirst.frc.team6201.robot.subsystems.DriveTrain;
@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -63,7 +63,18 @@ public class Robot extends IterativeRobot {
 	// section of the match.
 	// See robotInit() for how this is set.
 	Command autonomousCommand;
+	
+	/**
+	 * Network table to capture the values sent out by the GRIP code.
+	 */
+	NetworkTable gripValues;
 
+	public Robot() {
+		
+		gripValues = NetworkTable.getTable("GRIP/myContoursReport");
+		
+	}
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code. 
@@ -77,6 +88,8 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putString("Auto", "");
 		SmartDashboard.putNumber("TurboSpeed", 0.95);
+		
+		
 
 	}
 
